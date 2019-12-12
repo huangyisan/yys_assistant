@@ -43,7 +43,7 @@
         <item row="0" column="0">
          <widget class="QLabel" name="resolution_label">
           <property name="text">
-           <string>TextLabel</string>
+           <string>当前屏幕分辨率未知</string>
           </property>
          </widget>
         </item>
