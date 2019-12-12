@@ -8,13 +8,20 @@ class YYSWindow(QMainWindow):
         super().__init__(parent=parent)
         self.__ui=Ui_MainWindow()
         self.__ui.setupUi(self)
+
+        # logic
         self.__ui.btn_resolution.clicked.connect(self.click_Btn_resolution)
+        self.__ui.btn_move_left.clicked.connect(self.click_Btn_moveleft)
 
     def click_Btn_resolution(self):
         resolution = win32_func.get_screen_resolution()
         text = '当前屏幕分辨率为: {}'.format(':'.join(str(v) for v in resolution))
         self.__ui.resolution_label.setText(text)
+        # self.__ui.resolution_label.adjustSize()
 
+    def click_Btn_moveleft(self):
+        resolution = win32_func.get_screen_resolution()
+        win32_func.window_move_left(resolution=resolution)
 
 if  __name__ == "__main__":
 

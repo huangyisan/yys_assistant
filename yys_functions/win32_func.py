@@ -8,6 +8,7 @@ import keyboard
 
 # hwnd = win32gui.FindWindow(None,'live-Bigdata-jumpbox')
 hwnd = win32gui.FindWindow(None,'安全整改')
+# print(win32gui.GetActiveWindow())
 
 def get_screen_resolution():
     x = win32api.GetSystemMetrics(win32con.SM_CXSCREEN)
@@ -22,25 +23,33 @@ def get_window_pos(hwnd):
     bottom-=8
     return left, top, right, bottom
 
-def get_window_size(pos):
-    left, top, right, bottom = pos
-    w = right - left
-    h = bottom - top
-    return w,h
+def get_window_size():
+    left, top, right, bottom = get_window_pos(hwnd)
+    if left and right:
+        w = right - left
+        h = bottom - top
+        return w,h
+    else:
+        return 0
 
-def window_move_left(resolution, size):
-    x,y = resolution
-    w,h = size
+def window_move_left(resolution):
+    size = get_window_size()
+    if size:
+        x,y = resolution
+        w,h = size
 
-    half_x = int(x/2)
+        half_x = int(x/2)
 
-    ratio_w = half_x / w
+        ratio_w = half_x / w
 
-    h = int(ratio_w*h)
+        h = int(ratio_w*h)
 
-    win32gui.MoveWindow(hwnd, -8, 0, half_x, h, True)
+        win32gui.MoveWindow(hwnd, -8, 0, half_x, h, True)
+        return -8, 0, half_x, h
 
-    return -8, 0, half_x, h
+    else:
+        pass
+
 
 def get_mouse_axis():
     return win32api.GetCursorPos()
