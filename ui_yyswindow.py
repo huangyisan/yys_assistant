@@ -39,9 +39,6 @@ class Ui_MainWindow(object):
         self.resolution_label = QtWidgets.QLabel(self.groupBox)
         self.resolution_label.setObjectName("resolution_label")
         self.verticalLayout.addWidget(self.resolution_label)
-        self.btn_resolution = QtWidgets.QPushButton(self.groupBox)
-        self.btn_resolution.setObjectName("btn_resolution")
-        self.verticalLayout.addWidget(self.btn_resolution)
         self.verticalLayout_3.addWidget(self.groupBox)
         self.groupBox_2 = QtWidgets.QGroupBox(self.first_page)
         self.groupBox_2.setTitle("")
@@ -99,7 +96,6 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "痒痒鼠助手"))
         self.resolution_label.setText(_translate("MainWindow", "当前屏幕分辨率未知"))
-        self.btn_resolution.setText(_translate("MainWindow", "分辨率检测"))
         self.YYS_Handle.setPlaceholderText(_translate("MainWindow", "请输入句柄名称"))
         self.radioBtn_left.setText(_translate("MainWindow", "左边"))
         self.radioBtn_rigth.setText(_translate("MainWindow", "右边"))

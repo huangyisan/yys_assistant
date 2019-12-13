@@ -65,13 +65,6 @@
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="btn_resolution">
-             <property name="text">
-              <string>分辨率检测</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>

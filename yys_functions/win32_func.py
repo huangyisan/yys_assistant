@@ -132,7 +132,6 @@ def record_pixel()->dict:
             count += 1
             time.sleep(1)
 
-
         if keyboard.is_pressed('ctrl+q'):
             return pixel_dict
 
