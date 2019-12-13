@@ -11,7 +11,7 @@ class YYSWindow(QMainWindow):
 
         # logic
         self.__ui.btn_resolution.clicked.connect(self.click_Btn_resolution)
-        self.__ui.btn_move_left.clicked.connect(self.click_Btn_moveleft)
+        self.__ui.btn_move.clicked.connect(self.click_Btn_moveleft)
 
     def click_Btn_resolution(self):
         resolution = win32_func.get_screen_resolution()

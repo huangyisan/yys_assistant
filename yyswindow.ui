@@ -51,19 +51,6 @@
        <attribute name="title">
         <string>主页面</string>
        </attribute>
-       <widget class="QPushButton" name="btn_move_left">
-        <property name="geometry">
-         <rect>
-          <x>80</x>
-          <y>250</y>
-          <width>75</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>左边</string>
-        </property>
-       </widget>
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
          <rect>
@@ -93,6 +80,55 @@
          </item>
         </layout>
        </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>153</width>
+          <height>125</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLineEdit" name="YYS_Handle">
+           <property name="text">
+            <string>输入句柄名称</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="clickbox_left">
+           <property name="text">
+            <string>左边</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">buttonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="clickbox_rigth">
+           <property name="text">
+            <string>右边</string>
+           </property>
+           <attribute name="buttonGroup">
+            <string notr="true">buttonGroup</string>
+           </attribute>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_move">
+           <property name="text">
+            <string>移动</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="second_page">
        <attribute name="title">
@@ -117,4 +153,7 @@
  </widget>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
 </ui>
