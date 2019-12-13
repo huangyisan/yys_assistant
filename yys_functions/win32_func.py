@@ -7,9 +7,8 @@ import pyautogui as pag
 import keyboard
 import time
 
-# hwnd = win32gui.FindWindow(None,'live-Bigdata-jumpbox')
-hwnd = win32gui.FindWindow(None,'安全整改')
-# print(win32gui.GetActiveWindow())
+# hwnd = win32gui.FindWindow(None,'文件资源管理器')
+# hwnd1 = win32gui.FindWindow(None,'桌面')
 
 def get_screen_resolution()->tuple:
     '''
@@ -27,13 +26,13 @@ def get_window_pos(hwnd:object)->tuple:
     :return: 左上,右下坐标值
     '''
     left, top, right, bottom = win32gui.GetWindowRect(hwnd)
-    left+=8
-    right-=8
-    bottom-=8
+    # left+=8
+    # right-=8
+    # bottom-=8
     return left, top, right, bottom
 
 
-def get_window_size()->tuple or 0:
+def get_window_size(hwnd)->tuple or 0:
     '''
     获取窗口宽高
     :return: 宽高
@@ -49,13 +48,14 @@ def get_window_size()->tuple or 0:
         h = bottom - top
         return w,h
 
-def window_move_left()->tuple:
+def window_move_left(file_name)->tuple:
+    hwnd = win32gui.FindWindow(None, file_name)
     '''
     将窗体等比例缩放后移动至左上角,且宽度不超过屏幕分辨率的1/2
     :return:
     '''
     resolution = get_screen_resolution()
-    size = get_window_size()
+    size = get_window_size(hwnd)
 
     # size为0，则不进行任何处理
     if size:
@@ -68,10 +68,36 @@ def window_move_left()->tuple:
 
         h = int(ratio_w*h)
 
-        win32gui.MoveWindow(hwnd, -8, 0, half_x, h, True)
-        return -8, 0, half_x, h
+        win32gui.MoveWindow(hwnd, 0, 0, half_x, h, True)
+        return 0, 0, half_x, h
     else:
         pass
+
+def window_move_right(file_name)->tuple:
+    hwnd = win32gui.FindWindow(None,file_name)
+    '''
+    将窗体等比例缩放后移动至右上角,且宽度不超过屏幕分辨率的1/2
+    :return:
+    '''
+    resolution = get_screen_resolution()
+    size = get_window_size(hwnd)
+
+    # size为0，则不进行任何处理
+    if size:
+        x,y = resolution
+        w,h = size
+
+        half_x = int(x/2)
+
+        ratio_w = half_x / w
+
+        h = int(ratio_w*h)
+
+        win32gui.MoveWindow(hwnd, half_x, 0, half_x, h, True)
+        return half_x, 0, half_x, h
+    else:
+        pass
+
 
 
 
