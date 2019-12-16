@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func
+from yys_configurations import config
 
 class YYSWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -17,6 +18,9 @@ class YYSWindow(QMainWindow):
 
         # logic
         self.__ui.btn_move.clicked.connect(self.click_Btn_move)
+
+        # 追加像素点combbox内容
+        self.__ui.combobox_pixel_pos.addItems(config.combobox_pixel_pos)
 
     def get_screen_resolution(self):
         '''
