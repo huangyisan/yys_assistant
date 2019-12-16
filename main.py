@@ -16,11 +16,12 @@ class YYSWindow(QMainWindow):
         # 程序启动后加载执行的一些任务
         self.get_screen_resolution()
 
-        # logic
-        self.__ui.btn_move.clicked.connect(self.click_Btn_move)
-
         # 追加像素点combbox内容
-        self.__ui.combobox_pixel_pos.addItems(config.combobox_pixel_pos)
+        self.__ui.combobox_pixel_pos.addItems(config.default_combobox_pixel_pos)
+
+        # 点击之类逻辑
+        self.__ui.btn_move.clicked.connect(self.click_Btn_move)
+        self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
 
     def get_screen_resolution(self):
         '''
@@ -62,6 +63,10 @@ class YYSWindow(QMainWindow):
         else:
             # 错误弹窗调用
             self.showMessageBox(title='错误', message='未输入句柄名称',icon=QMessageBox.Critical)
+
+    def get_mouse_pos_pixel(self):
+        pos = win32_func.get_mouse_pos_pixel()
+        self.__ui.label_piexl.setText('采集像素点为：{}'.format(pos))
 
 
 if  __name__ == "__main__":
