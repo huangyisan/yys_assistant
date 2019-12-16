@@ -22,6 +22,7 @@ class YYSWindow(QMainWindow):
         resolution = win32_func.get_screen_resolution()
         text = '当前屏幕分辨率为: {}'.format(':'.join(str(v) for v in resolution))
         self.__ui.resolution_label.setText(text)
+        # self.__ui.resolution_label.setText('1111')
 
     def showMessageBox(self, title, message,icon):
         msgBox = QMessageBox()
