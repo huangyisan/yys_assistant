@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func
 from yys_configurations import config
+from ui_pos_config import Ui_pos_config
 
 class YYSWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -18,11 +19,15 @@ class YYSWindow(QMainWindow):
 
         # 追加像素点combbox内容
         self.__ui.combobox_pixel_pos.addItems(config.default_combobox_pixel_pos)
+        # 设定combobox的默认值
+        self.__ui.combobox_pixel_pos.setCurrentIndex(1)
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_Btn_move)
         # self.__ui.btn_collect_piexl.clicked.connect(self.get_current_combobox_value)
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
+        self.__ui.btn_pos_list.clicked.connect(self.pos_list_config)
+        self.__ui.btn_pos_save.clicked.connect(self.list_pos_save)
 
 
     def get_screen_resolution(self):
@@ -76,7 +81,40 @@ class YYSWindow(QMainWindow):
         rgb = res[0:2]
         self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
-        config.pixel_pos_dict.setdefault(self.__ui.combobox_pixel_pos.currentText(),pos)
+        config.pixel_info_dict[self.__ui.combobox_pixel_pos.currentText()]=res
+
+    def pos_list_config(self):
+        '''
+        展现当前运行状态中，pos的位置和采取到的颜色
+        :return:
+        '''
+        pos_config = YYS_pos_config(self)
+        pos_config.show()
+
+    def list_pos_save(self):
+        '''
+        将当前内存中的pos列表进行保存到磁盘中
+        :return:
+        '''
+        self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
+
+
+class YYS_pos_config(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.__ui=Ui_pos_config()
+        self.__ui.setupUi(self)
+
+        # 获取pos配置列表
+        pos_str = '采集点信息如下:\n'
+        for k,v in config.pixel_info_dict.items():
+            pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
+        pos_str += '\n\n\nRGB Online: https://www.colorspire.com/rgb-color-wheel/'
+        self.__ui.text_pos_config.setText(pos_str)
+        self.__ui.text_pos_config.setReadOnly(True)
+
+        self.__ui.btn_ok.clicked.connect(self.close)
+
 
 if  __name__ == "__main__":
 

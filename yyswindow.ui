@@ -163,7 +163,7 @@
         <string>移动</string>
        </property>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -213,6 +213,9 @@
        </property>
       </widget>
       <widget class="QLineEdit" name="line_pixel_pos">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -226,6 +229,9 @@
        </property>
       </widget>
       <widget class="QPushButton" name="btn_pixel_pos">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>190</x>
@@ -268,7 +274,7 @@
         </font>
        </property>
        <property name="text">
-        <string>采集像素点rgb为</string>
+        <string/>
        </property>
       </widget>
       <widget class="Line" name="line">
@@ -284,7 +290,7 @@
         <enum>Qt::Horizontal</enum>
        </property>
       </widget>
-      <widget class="QPushButton" name="btn_config">
+      <widget class="QPushButton" name="btn_pos_list">
        <property name="geometry">
         <rect>
          <x>140</x>
@@ -294,7 +300,20 @@
         </rect>
        </property>
        <property name="text">
-        <string>采点list</string>
+        <string>采点列表</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_pos_save">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>130</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>采点保存</string>
        </property>
       </widget>
      </widget>
