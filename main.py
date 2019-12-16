@@ -19,12 +19,23 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_move.clicked.connect(self.click_Btn_move)
 
     def get_screen_resolution(self):
+        '''
+        获取当前屏幕分辨率
+        :return: None
+        '''
         resolution = win32_func.get_screen_resolution()
         text = '当前屏幕分辨率为: {}'.format(':'.join(str(v) for v in resolution))
         self.__ui.resolution_label.setText(text)
         # self.__ui.resolution_label.setText('1111')
 
     def showMessageBox(self, title, message,icon):
+        '''
+        弹窗组件
+        :param title:
+        :param message:
+        :param icon:
+        :return:
+        '''
         msgBox = QMessageBox()
         msgBox.setWindowTitle(title)
         msgBox.setText(message)
@@ -33,6 +44,10 @@ class YYSWindow(QMainWindow):
         msgBox.exec_()
 
     def click_Btn_move(self):
+        '''
+        窗口移动，根据checkbox选择进行左移，或者右移动
+        :return:
+        '''
         yys_handle_text = self.__ui.YYS_Handle.text()
         if yys_handle_text:
             if self.__ui.radioBtn_left.isChecked():
@@ -41,6 +56,7 @@ class YYSWindow(QMainWindow):
             elif self.__ui.radioBtn_rigth.isChecked():
                 win32_func.window_move_right(file_name=yys_handle_text)
         else:
+            # 错误弹窗调用
             self.showMessageBox(title='错误', message='未输入句柄名称',icon=QMessageBox.Critical)
 
 
