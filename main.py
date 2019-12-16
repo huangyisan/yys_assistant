@@ -21,7 +21,9 @@ class YYSWindow(QMainWindow):
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_Btn_move)
+        # self.__ui.btn_collect_piexl.clicked.connect(self.get_current_combobox_value)
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
+
 
     def get_screen_resolution(self):
         '''
@@ -66,14 +68,15 @@ class YYSWindow(QMainWindow):
 
     def get_mouse_pos_pixel(self):
         '''
-        采集鼠标当前指向坐标rgb颜色
+        采集鼠标当前指向坐标rgb颜色，并且将combobox中的值作为key，坐标作为value，进行存储
         :return:
         '''
-        rgb = win32_func.get_mouse_pos_pixel()
-        print(rgb)
-        self.__ui.label_piexl.setText('采集像素点rgb为：{}'.format(rgb))
+        res = win32_func.get_mouse_pos_pixel()
+        pos = res[-1]
+        rgb = res[0:2]
+        self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
-
+        config.pixel_pos_dict.setdefault(self.__ui.combobox_pixel_pos.currentText(),pos)
 
 if  __name__ == "__main__":
 

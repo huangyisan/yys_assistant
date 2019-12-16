@@ -117,7 +117,7 @@ def get_mouse_pos_pixel()->tuple:
     img = pag.screenshot()
     pos = get_mouse_axis()
     r, g, b = img.getpixel(pos)
-    return r,g,b
+    return r,g,b,pos
 
 def record_pixel()->dict:
     '''
