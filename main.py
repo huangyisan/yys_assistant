@@ -65,8 +65,14 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='错误', message='未输入句柄名称',icon=QMessageBox.Critical)
 
     def get_mouse_pos_pixel(self):
-        pos = win32_func.get_mouse_pos_pixel()
-        self.__ui.label_piexl.setText('采集像素点为：{}'.format(pos))
+        '''
+        采集鼠标当前指向坐标rgb颜色
+        :return:
+        '''
+        rgb = win32_func.get_mouse_pos_pixel()
+        print(rgb)
+        self.__ui.label_piexl.setText('采集像素点rgb为：{}'.format(rgb))
+        self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
 
 
 if  __name__ == "__main__":

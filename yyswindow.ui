@@ -54,9 +54,9 @@
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
          <rect>
-          <x>9</x>
+          <x>10</x>
           <y>10</y>
-          <width>223</width>
+          <width>221</width>
           <height>41</height>
          </rect>
         </property>
@@ -254,8 +254,15 @@
            <height>31</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
+          </font>
+         </property>
          <property name="text">
-          <string>采集像素点为</string>
+          <string>采集像素点rgb为</string>
          </property>
         </widget>
         <widget class="Line" name="line">
