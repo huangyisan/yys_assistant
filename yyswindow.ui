@@ -242,7 +242,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>Ctrl+P</string>
+          <string>Alt+&amp;P</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_piexl">
