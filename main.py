@@ -10,7 +10,7 @@ class YYSWindow(QMainWindow):
         self.__ui.setupUi(self)
 
         # radio default checked
-        self.__ui.radioBtn_left.setChecked(True)
+        self.__ui.btn_radio_left.setChecked(True)
 
         # 程序启动后加载执行的一些任务
         self.get_screen_resolution()
@@ -48,13 +48,13 @@ class YYSWindow(QMainWindow):
         窗口移动，根据checkbox选择进行左移，或者右移动
         :return:
         '''
-        yys_handle_text = self.__ui.YYS_Handle.text()
-        if yys_handle_text:
-            if self.__ui.radioBtn_left.isChecked():
-                win32_func.window_move_left(file_name=yys_handle_text)
+        line_handle_text = self.__ui.line_handle.text()
+        if line_handle_text:
+            if self.__ui.btn_radio_left.isChecked():
+                win32_func.window_move_left(file_name=line_handle_text)
 
-            elif self.__ui.radioBtn_rigth.isChecked():
-                win32_func.window_move_right(file_name=yys_handle_text)
+            elif self.__ui.btn_radio_right.isChecked():
+                win32_func.window_move_right(file_name=line_handle_text)
         else:
             # 错误弹窗调用
             self.showMessageBox(title='错误', message='未输入句柄名称',icon=QMessageBox.Critical)
