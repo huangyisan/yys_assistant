@@ -98,9 +98,6 @@ def window_move_right(file_name)->tuple:
     else:
         pass
 
-
-
-
 def get_mouse_axis()->tuple:
     '''
     获取鼠标当前指向坐标
@@ -119,21 +116,6 @@ def get_mouse_pos_pixel()->tuple:
     r, g, b = img.getpixel(pos)
     return r,g,b,pos
 
-def record_pixel()->dict:
-    '''
-    按下热键，录制鼠标指定坐标像素
-    :return:
-    '''
-    count = 1
-    pixel_dict = {}
-    while True:
-        if keyboard.is_pressed('ctrl+w'):
-            pixel_dict[count] = get_mouse_pos_pixel()
-            count += 1
-            time.sleep(1)
-
-        if keyboard.is_pressed('ctrl+q'):
-            return pixel_dict
 
 
 
