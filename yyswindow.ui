@@ -207,7 +207,7 @@
         <rect>
          <x>10</x>
          <y>30</y>
-         <width>131</width>
+         <width>151</width>
          <height>22</height>
         </rect>
        </property>
@@ -215,9 +215,9 @@
       <widget class="QPushButton" name="btn_collect_piexl">
        <property name="geometry">
         <rect>
-         <x>150</x>
+         <x>170</x>
          <y>30</y>
-         <width>61</width>
+         <width>41</width>
          <height>21</height>
         </rect>
        </property>

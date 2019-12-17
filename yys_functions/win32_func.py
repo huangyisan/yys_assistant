@@ -137,7 +137,7 @@ def compare_rgb(pos_name:str)->bool:
         return True
     return False
 
-def click_mouse(pos_name:str,random_num:int):
+def click_mouse(pos_name:str,random_num:int=4):
     '''
 
     :param pos_name: 鼠标点击的位置
