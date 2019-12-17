@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -121,6 +121,8 @@ class Ui_MainWindow(object):
         self.groupBox_4.setObjectName("groupBox_4")
         self.btn_radio_leader_yes = QtWidgets.QRadioButton(self.groupBox_4)
         self.btn_radio_leader_yes.setGeometry(QtCore.QRect(10, 40, 89, 16))
+        self.btn_radio_leader_yes.setCheckable(True)
+        self.btn_radio_leader_yes.setChecked(False)
         self.btn_radio_leader_yes.setObjectName("btn_radio_leader_yes")
         self.buttonGroup = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup.setObjectName("buttonGroup")
@@ -146,6 +148,7 @@ class Ui_MainWindow(object):
         self.groupBox_5.setObjectName("groupBox_5")
         self.checkbox_first_pos = QtWidgets.QCheckBox(self.groupBox_5)
         self.checkbox_first_pos.setGeometry(QtCore.QRect(10, 40, 71, 16))
+        self.checkbox_first_pos.setTristate(False)
         self.checkbox_first_pos.setObjectName("checkbox_first_pos")
         self.buttonGroup_2 = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup_2.setObjectName("buttonGroup_2")

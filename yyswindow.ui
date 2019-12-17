@@ -352,6 +352,12 @@
        <property name="text">
         <string>是</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup</string>
        </attribute>
@@ -442,12 +448,15 @@
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
         <string>一号</string>
+       </property>
+       <property name="tristate">
+        <bool>false</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup_2</string>
@@ -458,7 +467,7 @@
         <rect>
          <x>80</x>
          <y>40</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>
@@ -474,7 +483,7 @@
         <rect>
          <x>150</x>
          <y>40</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>
@@ -490,7 +499,7 @@
         <rect>
          <x>10</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>
@@ -501,20 +510,20 @@
         <string notr="true">buttonGroup_2</string>
        </attribute>
       </widget>
-      <widget class="QCheckBox" name="checkbox_sixth_pos">
+      <widget class="QCheckBox" name="checkbox_none_pos">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
          <x>150</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
-        <string>六号</string>
+        <string>否</string>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup_2</string>
@@ -525,7 +534,7 @@
         <rect>
          <x>80</x>
          <y>60</y>
-         <width>71</width>
+         <width>51</width>
          <height>16</height>
         </rect>
        </property>

@@ -128,9 +128,12 @@ class YYSWindow(QMainWindow):
         self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
 
     def display_control_groupbox_open_box(self,checked):
+        '''
+        控制开箱groupbox是否启用
+        :param checked:
+        :return:
+        '''
         self.__ui.groupbox_open_box.setEnabled(checked)
-
-
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
