@@ -12,9 +12,10 @@ def soul(focus:int, exec_count:int, team_leader:bool = True, auto:bool = True, o
     :param reward: 悬赏封印是否接受
     :return:
     '''
-    exec_count = exec_count
+    
+    t_exec_count = exec_count if exec_count else True
 
-    while exec_count:
+    while t_exec_count:
         team_page()
 
 
