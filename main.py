@@ -2,7 +2,6 @@ import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func
-from yys_configurations import config, relations
 from ui_pos_config import Ui_pos_config
 
 from configparser import ConfigParser
@@ -16,9 +15,7 @@ class YYSWindow(QMainWindow):
         super().__init__(parent=parent)
         self.__ui=Ui_MainWindow()
 
-
         self.__ui.setupUi(self)
-
 
         # radio default checked
         self.__ui.btn_radio_left.setChecked(True)
@@ -50,7 +47,7 @@ class YYSWindow(QMainWindow):
         重载配置文件
         :return:
         '''
-        # print(cfg.items('pixel_info'))
+
         for i in cfg.items('pixel_info'):
             self.pixel_info[i[0]] = i[1]
 
@@ -143,7 +140,6 @@ class YYS_pos_config(QDialog):
 
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
-        # for k,v in cfg.items('pixel_info'):
         for k,v in YYSWindow.pixel_info.items():
             v = eval(v)
             pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
@@ -157,7 +153,7 @@ class YYS_pos_config(QDialog):
 
 if  __name__ == "__main__":
 
-    # reload config.ini
+    # 载入 config.ini 配置文件
     cfg = ConfigParser()
     config_file = './yys_configurations/config.ini'
     cfg.read(config_file, encoding='utf-8')
@@ -166,4 +162,3 @@ if  __name__ == "__main__":
     myWidget=YYSWindow()
     myWidget.show()
     sys.exit(app.exec_())
-
