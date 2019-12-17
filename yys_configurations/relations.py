@@ -24,5 +24,12 @@ pos_name = {
     '弧形_第三位置':'Arc_Third_Pos',
     '弧形_第四位置':'Arc_Fourth_Pos',
     '弧形_第五位置':'Arc_Fifth_Pos',
+
+
+    # 意外情况
+    '悬赏封印标示位置':'Reward_Detect_Pos',
+    '悬赏封印接受位置':'Reward_Accept_Pos',
+    '悬赏封印拒绝位置':'Reward_Reject_Pos',
+    
 }
 
