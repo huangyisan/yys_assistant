@@ -8,9 +8,14 @@ from ui_pos_config import Ui_pos_config
 from configparser import ConfigParser
 
 class YYSWindow(QMainWindow):
+
+    # running状态存储pixel info
+    pixel_info = {}
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.__ui=Ui_MainWindow()
+
 
         self.__ui.setupUi(self)
 
@@ -22,14 +27,9 @@ class YYSWindow(QMainWindow):
         self.__ui.groupbox_open_box.setEnabled(False)
         self.__ui.btn_radio_reward_yes.setChecked(True)
 
-        # running状态存储pixel info
-        self.pixel_info = {}
-
         # 程序启动后加载执行的一些任务
         self.get_screen_resolution()
-
-
-
+        self.reload_config()
 
         # 追加像素点combbox内容
         pos_name_list = [k for k,v in cfg.items('pos_name')]
@@ -45,6 +45,14 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_auto_yes.clicked.connect(lambda: self.display_control_groupbox_open_box(False))
         self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
 
+    def reload_config(self):
+        '''
+        重载配置文件
+        :return:
+        '''
+        # print(cfg.items('pixel_info'))
+        for i in cfg.items('pixel_info'):
+            self.pixel_info[i[0]] = i[1]
 
     def get_screen_resolution(self):
         '''
@@ -99,6 +107,7 @@ class YYSWindow(QMainWindow):
         rgb = res[0:2]
         self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
+
         self.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
 
     def pos_list_config(self):
@@ -124,6 +133,8 @@ class YYSWindow(QMainWindow):
     def display_control_groupbox_open_box(self,checked):
         self.__ui.groupbox_open_box.setEnabled(checked)
 
+
+
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -132,7 +143,8 @@ class YYS_pos_config(QDialog):
 
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
-        for k,v in cfg.items('pixel_info'):
+        # for k,v in cfg.items('pixel_info'):
+        for k,v in YYSWindow.pixel_info.items():
             v = eval(v)
             pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
         pos_str += '\n\n\nRGB Online: https://www.colorspire.com/rgb-color-wheel/'
