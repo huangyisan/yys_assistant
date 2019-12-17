@@ -37,10 +37,11 @@ class YYSWindow(QMainWindow):
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
-        self.__ui.btn_pos_list.clicked.connect(self.pos_list_config)
-        self.__ui.btn_pos_save.clicked.connect(self.list_pos_save)
+        self.__ui.btn_pos_list.clicked.connect(self.get_pos_list_config)
+        self.__ui.btn_pos_save.clicked.connect(self.save_list_pos)
         self.__ui.btn_radio_auto_yes.clicked.connect(lambda: self.display_control_groupbox_open_box(False))
         self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
+        self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
 
     def reload_config(self):
         '''
@@ -107,7 +108,7 @@ class YYSWindow(QMainWindow):
         self.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
         print(self.pixel_info)
 
-    def pos_list_config(self):
+    def get_pos_list_config(self):
         '''
         展现当前运行状态中，pos的位置和采取到的颜色
         :return:
@@ -115,7 +116,7 @@ class YYSWindow(QMainWindow):
         pos_config = YYS_pos_config(self)
         pos_config.show()
 
-    def list_pos_save(self):
+    def save_list_pos(self):
         '''
         将当前内存中的pos列表进行保存到磁盘中
         :return:
@@ -134,6 +135,17 @@ class YYSWindow(QMainWindow):
         :return:
         '''
         self.__ui.groupbox_open_box.setEnabled(checked)
+
+    def save_exec_count(self):
+        count = self.__ui.spinbox_exec_count.value()
+        cfg.set('count','exec_count',str(count))
+        with open(config_file, 'w',encoding='utf-8') as configfile:
+            cfg.write(configfile)
+        if count:
+            self.showMessageBox(title='提示', message='保存成功\n执行{}次'.format(count), icon=QMessageBox.Information)
+        else:
+            self.showMessageBox(title='提示', message='保存成功\n循环执行'.format(count), icon=QMessageBox.Information)
+
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
