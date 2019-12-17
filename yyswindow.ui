@@ -359,7 +359,7 @@
       <widget class="QRadioButton" name="btn_radio_leader_no">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>130</x>
          <y>40</y>
          <width>89</width>
          <height>16</height>
@@ -401,7 +401,7 @@
       <widget class="QRadioButton" name="btn_radio_auto_no">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>130</x>
          <y>80</y>
          <width>89</width>
          <height>16</height>
@@ -550,7 +550,10 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_6">
+     <widget class="QGroupBox" name="groupbox_open_box">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -567,7 +570,7 @@
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>151</width>
+         <width>201</width>
          <height>16</height>
         </rect>
        </property>
@@ -591,7 +594,7 @@
       <widget class="QRadioButton" name="btn_radio_open_no">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>130</x>
          <y>40</y>
          <width>89</width>
          <height>16</height>
@@ -619,7 +622,7 @@
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>151</width>
+         <width>201</width>
          <height>16</height>
         </rect>
        </property>
@@ -643,7 +646,7 @@
       <widget class="QRadioButton" name="btn_radio_reward_no">
        <property name="geometry">
         <rect>
-         <x>100</x>
+         <x>130</x>
          <y>40</y>
          <width>89</width>
          <height>16</height>
@@ -654,17 +657,30 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="btn_start_soul">
+     <widget class="QPushButton" name="btn_soul_start">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>130</x>
         <y>390</y>
-        <width>221</width>
+        <width>101</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
        <string>开始挂机</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_soul_stop">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>390</y>
+        <width>101</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>停止挂机</string>
       </property>
      </widget>
     </widget>

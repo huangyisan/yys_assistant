@@ -15,9 +15,16 @@ class YYSWindow(QMainWindow):
 
         # radio default checked
         self.__ui.btn_radio_left.setChecked(True)
+        self.__ui.btn_radio_leader_yes.setChecked(True)
+        self.__ui.btn_radio_auto_yes.setChecked(True)
+        self.__ui.groupbox_open_box.setEnabled(False)
+        self.__ui.btn_radio_reward_yes.setChecked(True)
 
         # 程序启动后加载执行的一些任务
         self.get_screen_resolution()
+
+
+
 
         # 追加像素点combbox内容
         self.__ui.combobox_pixel_pos.addItems(config.default_combobox_pixel_pos)
@@ -30,6 +37,8 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
         self.__ui.btn_pos_list.clicked.connect(self.pos_list_config)
         self.__ui.btn_pos_save.clicked.connect(self.list_pos_save)
+        self.__ui.btn_radio_auto_yes.clicked.connect(lambda: self.display_control_groupbox_open_box(False))
+        self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
 
 
     def get_screen_resolution(self):
@@ -99,6 +108,11 @@ class YYSWindow(QMainWindow):
         :return:
         '''
         self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
+
+    def display_control_groupbox_open_box(self,checked):
+        self.__ui.groupbox_open_box.setEnabled(checked)
+
+
 
 
 class YYS_pos_config(QDialog):
