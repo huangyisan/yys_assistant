@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog
+from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func
 from yys_configurations import config
@@ -9,7 +9,9 @@ class YYSWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.__ui=Ui_MainWindow()
+
         self.__ui.setupUi(self)
+
 
         # radio default checked
         self.__ui.btn_radio_left.setChecked(True)
@@ -113,6 +115,7 @@ class YYS_pos_config(QDialog):
         self.__ui.text_pos_config.setText(pos_str)
         self.__ui.text_pos_config.setReadOnly(True)
 
+        # 关闭自身window
         self.__ui.btn_ok.clicked.connect(self.close)
 
 

@@ -30,6 +30,6 @@ pos_name = {
     '悬赏封印标示位置':'Reward_Detect_Pos',
     '悬赏封印接受位置':'Reward_Accept_Pos',
     '悬赏封印拒绝位置':'Reward_Reject_Pos',
-    
+
 }
 
