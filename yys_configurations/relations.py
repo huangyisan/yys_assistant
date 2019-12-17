@@ -33,3 +33,16 @@ pos_name = {
 
 }
 
+# 追加像素点combbox内容, 此功能待开发
+add_combobox_pixel_pos = []
+
+def get_pos_name():
+    '''
+    像素点combbox内容
+    :return:
+    '''
+
+    default_combobox_pixel_pos = [i for i in pos_name]
+
+    default_combobox_pixel_pos.extend(add_combobox_pixel_pos)
+    return sorted(default_combobox_pixel_pos)

@@ -2,8 +2,10 @@ import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func
-from yys_configurations import config
+from yys_configurations import config, relations
 from ui_pos_config import Ui_pos_config
+
+from configparser import ConfigParser
 
 class YYSWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -20,6 +22,9 @@ class YYSWindow(QMainWindow):
         self.__ui.groupbox_open_box.setEnabled(False)
         self.__ui.btn_radio_reward_yes.setChecked(True)
 
+        # running状态存储pixel info
+        self.pixel_info = {}
+
         # 程序启动后加载执行的一些任务
         self.get_screen_resolution()
 
@@ -27,13 +32,13 @@ class YYSWindow(QMainWindow):
 
 
         # 追加像素点combbox内容
-        self.__ui.combobox_pixel_pos.addItems(config.default_combobox_pixel_pos)
-        # 设定combobox的默认值
-        self.__ui.combobox_pixel_pos.setCurrentIndex(1)
+        pos_name_list = [k for k,v in cfg.items('pos_name')]
+        self.__ui.combobox_pixel_pos.addItems(pos_name_list)
+        # # 设定combobox的默认值
+        # self.__ui.combobox_pixel_pos.setCurrentIndex(1)
 
         # 点击之类逻辑
-        self.__ui.btn_move.clicked.connect(self.click_Btn_move)
-        # self.__ui.btn_collect_piexl.clicked.connect(self.get_current_combobox_value)
+        self.__ui.btn_move.clicked.connect(self.click_btn_move)
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
         self.__ui.btn_pos_list.clicked.connect(self.pos_list_config)
         self.__ui.btn_pos_save.clicked.connect(self.list_pos_save)
@@ -66,7 +71,7 @@ class YYSWindow(QMainWindow):
         msgBox.setIcon(icon)
         msgBox.exec_()
 
-    def click_Btn_move(self):
+    def click_btn_move(self):
         '''
         窗口移动，根据checkbox选择进行左移，或者右移动
         :return:
@@ -87,12 +92,14 @@ class YYSWindow(QMainWindow):
         采集鼠标当前指向坐标rgb颜色，并且将combobox中的值作为key，坐标作为value，进行存储
         :return:
         '''
+
+
         res = win32_func.get_mouse_pos_pixel()
         pos = res[-1]
         rgb = res[0:2]
         self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
-        config.pixel_info_dict[self.__ui.combobox_pixel_pos.currentText()]=res
+        self.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
 
     def pos_list_config(self):
         '''
@@ -107,13 +114,15 @@ class YYSWindow(QMainWindow):
         将当前内存中的pos列表进行保存到磁盘中
         :return:
         '''
+
+        for name,info in self.pixel_info.items():
+            cfg.set('pixel_info',name,str(info))
+        with open(config_file, 'w',encoding='utf-8') as configfile:
+            cfg.write(configfile)
         self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
 
     def display_control_groupbox_open_box(self,checked):
         self.__ui.groupbox_open_box.setEnabled(checked)
-
-
-
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
@@ -123,7 +132,8 @@ class YYS_pos_config(QDialog):
 
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
-        for k,v in config.pixel_info_dict.items():
+        for k,v in cfg.items('pixel_info'):
+            v = eval(v)
             pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
         pos_str += '\n\n\nRGB Online: https://www.colorspire.com/rgb-color-wheel/'
         self.__ui.text_pos_config.setText(pos_str)
@@ -134,6 +144,11 @@ class YYS_pos_config(QDialog):
 
 
 if  __name__ == "__main__":
+
+    # reload config.ini
+    cfg = ConfigParser()
+    config_file = './yys_configurations/config.ini'
+    cfg.read(config_file, encoding='utf-8')
 
     app = QApplication(sys.argv)     #创建app，用QApplication类
     myWidget=YYSWindow()
