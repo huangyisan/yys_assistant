@@ -29,7 +29,7 @@ class YYSWindow(QMainWindow):
         self.reload_config()
 
         # 追加像素点combbox内容
-        pos_name_list = [k for k,v in cfg.items('pos_name')]
+        pos_name_list = [v for k,v in cfg.items('pos_name')]
         self.__ui.combobox_pixel_pos.addItems(pos_name_list)
         # # 设定combobox的默认值
         # self.__ui.combobox_pixel_pos.setCurrentIndex(1)
@@ -98,7 +98,6 @@ class YYSWindow(QMainWindow):
         :return:
         '''
 
-
         res = win32_func.get_mouse_pos_pixel()
         pos = res[-1]
         rgb = res[0:2]
@@ -106,6 +105,7 @@ class YYSWindow(QMainWindow):
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
 
         self.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
+        print(self.pixel_info)
 
     def pos_list_config(self):
         '''
@@ -141,7 +141,10 @@ class YYS_pos_config(QDialog):
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
         for k,v in YYSWindow.pixel_info.items():
-            v = eval(v)
+            try:
+                v = eval(v)
+            except TypeError as e:
+                pass
             pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
         pos_str += '\n\n\nRGB Online: https://www.colorspire.com/rgb-color-wheel/'
         self.__ui.text_pos_config.setText(pos_str)

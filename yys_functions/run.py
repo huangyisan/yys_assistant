@@ -1,4 +1,4 @@
-from configparser import ConfigParser
-cfg = ConfigParser()
-cfg.read('../yys_configurations/config.ini',encoding='utf-8')
-pos_name_list = [k for k,v in cfg.items('pos_name')]
+from win32_func import compare_rgb,click_mouse
+
+
+print(click_mouse(pos_name='single_simhun_fire_pos',random_num=1))

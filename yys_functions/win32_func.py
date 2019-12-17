@@ -1,14 +1,8 @@
-# pip3 install pywin32
-# pip3 install pyautogui
-# pip install keyboard
-
 import win32gui,win32api, win32con
 import pyautogui as pag
-import keyboard
-import time
-
-# hwnd = win32gui.FindWindow(None,'文件资源管理器')
-# hwnd1 = win32gui.FindWindow(None,'桌面')
+from configparser import ConfigParser
+import random
+import pyautogui
 
 def get_screen_resolution()->tuple:
     '''
@@ -110,12 +104,58 @@ def get_mouse_pos_pixel()->tuple:
     获取鼠标指向坐标的像素
     :return:
     '''
-    # im = pag.screenshot(region=size)
     img = pag.screenshot()
     pos = get_mouse_axis()
     r, g, b = img.getpixel(pos)
     return r,g,b,pos
 
+def compare_rgb(pos_name:str)->bool:
+    '''
+    比较截图rgb和配置rgb是否符合
+    :param pos_name:  英文pos_name    single_simhun_fire_pos
+    :return:
+    '''
+    cfg = ConfigParser()
+    config_file = '../yys_configurations/config.ini'
+    cfg.read(config_file, encoding='utf-8')
 
+    # 根据pos_name参数获取config.ini中的pixel_info配置
+    pixel_info = eval(cfg.get('pixel_info',cfg.get('pos_name',pos_name)))
 
+    # config.ini中的配置rgb信息
+    config_rgb = pixel_info[0:3]
+
+    # config.ini中配置的坐标信息
+    pos = pixel_info[-1]
+
+    # 截图根据坐标获取到的rgb信息
+    img = pag.screenshot()
+    rgb= img.getpixel(pos)
+
+    # 判断截图获取的rgb信息和配置中的rgb信息是否一致
+    if rgb == config_rgb:
+        return True
+    return False
+
+def click_mouse(pos_name:str,random_num:int):
+    '''
+
+    :param pos_name: 鼠标点击的位置
+    :param random_num: 随机数最大值，用来构造新的坐标区间，设定不要过大
+    :return:
+    '''
+
+    cfg = ConfigParser()
+    config_file = '../yys_configurations/config.ini'
+    cfg.read(config_file, encoding='utf-8')
+    pixel_info = eval(cfg.get('pixel_info',cfg.get('pos_name',pos_name)))
+    pos = pixel_info[-1]
+
+    # 给予xy四个随机区间,获得一个新的坐标
+    random_x = pos[0] + random.randint(0, random_num)
+    random_y = pos[1] + random.randint(0, random_num)
+
+    # 鼠标进行移动, 并且左单击
+    pyautogui.moveTo(random_x, random_y, duration=0.1)
+    pyautogui.click(button='left')
 
