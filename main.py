@@ -1,15 +1,12 @@
 import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
 from ui_yyswindow import Ui_MainWindow
-from yys_functions import win32_func
+from yys_functions import win32_func,game_func
 from ui_pos_config import Ui_pos_config
 
 from configparser import ConfigParser
 
 class YYSWindow(QMainWindow):
-
-    # running状态存储pixel info
-    pixel_info = {}
 
     def __init__(self, parent=None):
         super().__init__(parent=parent)
@@ -43,7 +40,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
 
-        self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
+        # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
     def reload_config(self):
         '''
@@ -52,7 +49,7 @@ class YYSWindow(QMainWindow):
         '''
 
         for i in cfg.items('pixel_info'):
-            self.pixel_info[i[0]] = i[1]
+            game_func.pixel_info[i[0]] = i[1]
 
     def get_screen_resolution(self):
         '''
@@ -107,8 +104,8 @@ class YYSWindow(QMainWindow):
         self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
 
-        self.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
-        print(self.pixel_info)
+        game_func.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
+        print(game_func.pixel_info)
 
     def get_pos_list_config(self):
         '''
@@ -124,7 +121,7 @@ class YYSWindow(QMainWindow):
         :return:
         '''
 
-        for name,info in self.pixel_info.items():
+        for name,info in game_func.pixel_info.items():
             cfg.set('pixel_info',name,str(info))
         with open(config_file, 'w',encoding='utf-8') as configfile:
             cfg.write(configfile)
@@ -157,7 +154,7 @@ class YYS_pos_config(QDialog):
 
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
-        for k,v in YYSWindow.pixel_info.items():
+        for k,v in game_func.pixel_info.items():
             try:
                 v = eval(v)
             except TypeError as e:

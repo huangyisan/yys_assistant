@@ -1,10 +1,13 @@
-from win32_func import compare_rgb, click_mouse
+from .win32_func import compare_rgb, click_mouse
 from functools import wraps
 from configparser import ConfigParser,NoOptionError
 
-def dry_run(flag:bool=True)->function:
-    '''
+# running状态存储pixel info
+pixel_info = {}
 
+def dry_run(flag:bool=True):
+    '''
+    干跑装饰器，用来检测所用到的pos是否采集
     :param flag: True->enable dry run mode, False -> disable dry run mode
     :return:
     '''
@@ -16,7 +19,8 @@ def dry_run(flag:bool=True)->function:
                 cfg.read(config_file, encoding='utf-8')
                 try:
                     for arg in args:
-                        cfg.get('pixel_info',arg)
+                        res = cfg.get('pos_name',arg)
+                        # if res in pixel_info = {}
                 except NoOptionError:
                     print('error')
             else:
