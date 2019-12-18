@@ -1,16 +1,49 @@
 from yys_functions.win32_func import compare_rgb, click_mouse
-from functools import wraps
 from configparser import ConfigParser,NoOptionError
-from yys_functions.decorater import dry_run
+# from yys_functions.decorater import dry_run
+from project_settings import yys_config_path
+
 
 
 # running状态存储pixel info
 pixel_info = {}
 
+cfg = ConfigParser()
+config_file = yys_config_path
+cfg.read(config_file, encoding='utf-8')
+flag = int(cfg.get('dry_run', 'flag'))
+
+def dry_run(flag):
+    '''
+    干跑装饰器，用来检测所用到的pos是否采集
+    :param flag: True->enable dry run mode, False -> disable dry run mode
+    :return:
+    '''
+    def decorate(func):
+
+        def wrapper(**kwargs):
+            if flag:
+                try:
+                    for key,value in kwargs.items():
+                        print(key,value)
+                        res = cfg.get('pos_name',value)
+                        # 异常触发检测
+                        pixel_info[res]
+                except (NoOptionError,KeyError):
+                    error_info = '{} 缺失该坐标配置'.format(res)
+                    return (1,error_info)
+                return (0,'配置正确')
+            else:
+                func(**kwargs)
+        return wrapper
+    return decorate
+
+
 # control dry run mode
-flag = True
+
+
 @dry_run(flag)
-def team_page(pos='team_pic_pos',click_pos='c_team_start_pos')->bool:
+def team_page(pos,click_pos)->bool:
     '''
     判定是否是组队界面，如果是，则点击开始按钮
     :param pos:  判断界面
@@ -24,9 +57,9 @@ def team_page(pos='team_pic_pos',click_pos='c_team_start_pos')->bool:
             return True
 
 @dry_run(flag)
-def battle_ready(pos='simhun_ready_pos',click_pos='c_simhun_ready_pos')->bool:
+def battle_ready(pos,click_pos)->bool:
     '''
-    判定是否为战斗准备阶段，如果是，则点击准备鼓面按钮
+    判定是否为战斗准备阶段，如果是，则点击准备鼓面按钮。一般用不到，因为可以锁定队伍
     :return: 
     '''
     while True:
@@ -44,7 +77,8 @@ def battle_during(pos):
         if not compare_rgb(pos):
             return True
 
-def battle_end(pos='p_background_pic_pos',click_pos='c_open_box_pos'):
+@dry_run(flag)
+def battle_end(pos,click_pos):
     '''
     判定当前战斗是否结束,鬼火状态消失，则一直点击，准备开箱，直到找到结束背景色或者组队界面，则停止
     :param pos: 鬼火位置
@@ -58,6 +92,7 @@ def battle_end(pos='p_background_pic_pos',click_pos='c_open_box_pos'):
         else:
             return True
 
+@dry_run(flag)
 def select_position(click_pos):
     '''
 
@@ -66,6 +101,7 @@ def select_position(click_pos):
     '''
     click_mouse(click_pos,random_num=2)
 
+@dry_run(flag)
 def reward_page(pos,click_pos):
     '''
     悬赏封印情况
@@ -76,7 +112,3 @@ def reward_page(pos,click_pos):
 
     if compare_rgb(pos):
         click_mouse(click_pos)
-
-@dry_run(flag)
-def test_func(a):
-    print(a)

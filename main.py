@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QD
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func,game_func
 from ui_pos_config import Ui_pos_config
+from project_settings import yys_config_path
+from yys_functions.game import soul
 
 from configparser import ConfigParser
 
@@ -18,7 +20,6 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_left.setChecked(True)
         self.__ui.btn_radio_leader_yes.setChecked(True)
         self.__ui.btn_radio_auto_yes.setChecked(True)
-        self.__ui.groupbox_open_box.setEnabled(False)
         self.__ui.btn_radio_reward_yes.setChecked(True)
 
         # 程序启动后加载执行的一些任务
@@ -36,9 +37,8 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_collect_piexl.clicked.connect(self.get_mouse_pos_pixel)
         self.__ui.btn_pos_list.clicked.connect(self.get_pos_list_config)
         self.__ui.btn_pos_save.clicked.connect(self.save_list_pos)
-        self.__ui.btn_radio_auto_yes.clicked.connect(lambda: self.display_control_groupbox_open_box(False))
-        self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
+        self.__ui.btn_config_check.clicked.connect(lambda: self.check_soul_config_pos(soul))
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
@@ -126,14 +126,6 @@ class YYSWindow(QMainWindow):
             cfg.write(configfile)
         self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
 
-    def display_control_groupbox_open_box(self,checked):
-        '''
-        控制开箱groupbox是否启用
-        :param checked:
-        :return:
-        '''
-        self.__ui.groupbox_open_box.setEnabled(checked)
-
     def save_exec_count(self):
         count = self.__ui.spinbox_exec_count.value()
         cfg.set('count','exec_count',str(count))
@@ -143,6 +135,23 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='保存成功\n执行{}次'.format(count), icon=QMessageBox.Information)
         else:
             self.showMessageBox(title='提示', message='保存成功\n循环执行'.format(count), icon=QMessageBox.Information)
+
+    def check_soul_config_pos(self,func):
+        '''
+        检测御魂是否符合要执行挂机的配置pos. 返回值为0表示正常，1表示异常
+        :return:
+        '''
+
+        # code,info = soul()
+        code,info= func()
+
+        if code:
+            self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
+        else:
+            self.showMessageBox(title='提示', message=info, icon=QMessageBox.Information)
+
+
+
 
 
 class YYS_pos_config(QDialog):
@@ -169,9 +178,11 @@ class YYS_pos_config(QDialog):
 
 if  __name__ == "__main__":
 
+
+
     # 载入 config.ini 配置文件
     cfg = ConfigParser()
-    config_file = './yys_configurations/config.ini'
+    config_file = yys_config_path
     cfg.read(config_file, encoding='utf-8')
 
     app = QApplication(sys.argv)     #创建app，用QApplication类

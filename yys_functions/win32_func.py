@@ -3,6 +3,7 @@ import pyautogui as pag
 from configparser import ConfigParser
 import random
 import pyautogui
+from project_settings import yys_config_path
 
 def get_screen_resolution()->tuple:
     '''
@@ -116,7 +117,7 @@ def compare_rgb(pos_name:str)->bool:
     :return:
     '''
     cfg = ConfigParser()
-    config_file = '../yys_configurations/config.ini'
+    config_file = yys_config_path
     cfg.read(config_file, encoding='utf-8')
 
     # 根据pos_name参数获取config.ini中的pixel_info配置
