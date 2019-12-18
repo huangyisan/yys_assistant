@@ -11,9 +11,9 @@ from game_func import dry_run
 # except NoOptionError as e:
 #     print(e)
 
-@dry_run(flag=False)
-def test_func(a,b):
+@dry_run(flag=True)
+def test_func(a):
     print(a)
-    print(b)
 
-test_func(str(1),str(2))
+
+test_func('p_single_simhun_fire_pos')

@@ -105,7 +105,6 @@ class YYSWindow(QMainWindow):
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
 
         game_func.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
-        print(game_func.pixel_info)
 
     def get_pos_list_config(self):
         '''

@@ -3,7 +3,7 @@ from functools import wraps
 from configparser import ConfigParser,NoOptionError
 
 # running状态存储pixel info
-pixel_info = {}
+pixel_info = {'单人_类魂十_鬼火_坐标':1}
 
 def dry_run(flag:bool=True):
     '''
@@ -20,8 +20,9 @@ def dry_run(flag:bool=True):
                 try:
                     for arg in args:
                         res = cfg.get('pos_name',arg)
-                        # if res in pixel_info = {}
-                except NoOptionError:
+                        # 异常触发检测
+                        pixel_info[res]
+                except (NoOptionError,KeyError):
                     print('error')
             else:
                 func(*args)
