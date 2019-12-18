@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -73,6 +73,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.btn_radio_right)
         self.groupBox_3 = QtWidgets.QGroupBox(self.first_page)
         self.groupBox_3.setGeometry(QtCore.QRect(10, 160, 221, 151))
+        self.groupBox_3.setToolTip("")
         self.groupBox_3.setObjectName("groupBox_3")
         self.combobox_pixel_pos = QtWidgets.QComboBox(self.groupBox_3)
         self.combobox_pixel_pos.setGeometry(QtCore.QRect(10, 30, 151, 22))
@@ -212,28 +213,36 @@ class Ui_MainWindow(object):
         self.fourth_page = QtWidgets.QWidget()
         self.fourth_page.setObjectName("fourth_page")
         self.tabWidget.addTab(self.fourth_page, "")
+        self.tab = QtWidgets.QWidget()
+        self.tab.setObjectName("tab")
+        self.tabWidget.addTab(self.tab, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "痒痒鼠助手"))
         self.resolution_label.setText(_translate("MainWindow", "当前屏幕分辨率未知"))
+        self.line_handle.setToolTip(_translate("MainWindow", "痒痒鼠窗口名称"))
         self.line_handle.setPlaceholderText(_translate("MainWindow", "请输入句柄名称"))
         self.btn_move.setText(_translate("MainWindow", "移动"))
         self.btn_radio_left.setText(_translate("MainWindow", "左边"))
         self.btn_radio_right.setText(_translate("MainWindow", "右边"))
         self.groupBox_3.setTitle(_translate("MainWindow", "采点设定"))
+        self.btn_collect_piexl.setToolTip(_translate("MainWindow", "请使用Alt+P进行采点"))
         self.btn_collect_piexl.setText(_translate("MainWindow", "Alt+&P"))
+        self.btn_pos_list.setToolTip(_translate("MainWindow", "查看当前运行状态采点列表"))
         self.btn_pos_list.setText(_translate("MainWindow", "采点列表"))
+        self.btn_pos_save.setToolTip(_translate("MainWindow", "保存采点信息到配置文件"))
         self.btn_pos_save.setText(_translate("MainWindow", "采点保存"))
         self.groupBox_6.setTitle(_translate("MainWindow", "执行次数"))
+        self.spinbox_exec_count.setToolTip(_translate("MainWindow", "脚本执行次数，若0则一直执行直到退出"))
         self.btn_count_save.setText(_translate("MainWindow", "确定"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.first_page), _translate("MainWindow", "主页面"))
         self.groupBox_4.setTitle(_translate("MainWindow", "战斗前"))
@@ -259,7 +268,9 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "是否接受封印悬赏？"))
         self.btn_radio_reward_yes.setText(_translate("MainWindow", "是"))
         self.btn_radio_reward_no.setText(_translate("MainWindow", "否"))
-        self.btn_soul_start.setText(_translate("MainWindow", "开始挂机"))
+        self.btn_soul_start.setToolTip(_translate("MainWindow", "先检测，再开始"))
+        self.btn_soul_start.setText(_translate("MainWindow", "配置检测"))
         self.btn_soul_stop.setText(_translate("MainWindow", "停止挂机"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.second_page), _translate("MainWindow", "御魂"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.fourth_page), _translate("MainWindow", "突破"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "帮助"))

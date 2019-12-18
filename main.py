@@ -43,6 +43,8 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_auto_no.clicked.connect(lambda: self.display_control_groupbox_open_box(True))
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
 
+        self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
+
     def reload_config(self):
         '''
         重载配置文件

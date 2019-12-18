@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -109,6 +109,9 @@
        </property>
        <property name="contextMenuPolicy">
         <enum>Qt::DefaultContextMenu</enum>
+       </property>
+       <property name="toolTip">
+        <string>痒痒鼠窗口名称</string>
        </property>
        <property name="whatsThis">
         <string/>
@@ -199,6 +202,9 @@
         <height>151</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string/>
+      </property>
       <property name="title">
        <string>采点设定</string>
       </property>
@@ -220,6 +226,9 @@
          <width>41</width>
          <height>21</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>请使用Alt+P进行采点</string>
        </property>
        <property name="text">
         <string>Alt+&amp;P</string>
@@ -267,6 +276,9 @@
          <height>21</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>查看当前运行状态采点列表</string>
+       </property>
        <property name="text">
         <string>采点列表</string>
        </property>
@@ -279,6 +291,9 @@
          <width>71</width>
          <height>21</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>保存采点信息到配置文件</string>
        </property>
        <property name="text">
         <string>采点保存</string>
@@ -305,6 +320,9 @@
          <width>91</width>
          <height>22</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>脚本执行次数，若0则一直执行直到退出</string>
        </property>
       </widget>
       <widget class="QPushButton" name="btn_count_save">
@@ -679,8 +697,11 @@
         <height>23</height>
        </rect>
       </property>
+      <property name="toolTip">
+       <string>先检测，再开始</string>
+      </property>
       <property name="text">
-       <string>开始挂机</string>
+       <string>配置检测</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_soul_stop">
@@ -702,6 +723,11 @@
       <string>突破</string>
      </attribute>
     </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>帮助</string>
+     </attribute>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -709,7 +735,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>
