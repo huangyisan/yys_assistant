@@ -457,7 +457,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>120</y>
         <width>221</width>
         <height>81</height>
        </rect>
@@ -581,66 +581,11 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupbox_open_box">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>230</y>
-        <width>221</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>战斗后</string>
-      </property>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>201</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>是否自动开箱？</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="btn_radio_open_yes">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>89</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>是</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="btn_radio_open_no">
-       <property name="geometry">
-        <rect>
-         <x>130</x>
-         <y>40</y>
-         <width>89</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>否</string>
-       </property>
-      </widget>
-     </widget>
      <widget class="QGroupBox" name="groupBox_7">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>310</y>
+        <y>210</y>
         <width>221</width>
         <height>61</height>
        </rect>
@@ -701,7 +646,7 @@
        <string>先检测，再开始</string>
       </property>
       <property name="text">
-       <string>配置检测</string>
+       <string>开始挂机</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btn_soul_stop">
@@ -715,6 +660,24 @@
       </property>
       <property name="text">
        <string>停止挂机</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_config_check">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>290</y>
+        <width>221</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>配置检测</string>
       </property>
      </widget>
     </widget>
