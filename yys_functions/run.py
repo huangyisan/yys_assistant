@@ -1,19 +1,8 @@
-from yys_functions.win32_func import compare_rgb,click_mouse
-from configparser import ConfigParser,NoOptionError
-from yys_functions.decorater import dry_run
+from yys_functions.game_func import test_func
+from yys_functions import game_func
 
-# cfg = ConfigParser()
-# config_file = '../yys_configurations/config.ini'
-# cfg.read(config_file, encoding='utf-8')
-# try:
-#     res = cfg.get('pixel_info','123')
-#     print(res)
-# except NoOptionError as e:
-#     print(e)
+def test1(flag):
+    game_func.flag = flag
+    test_func('1')
 
-@dry_run(flag=True)
-def test_func(a):
-    print(a)
-
-
-test_func('p_single_simhun_fire_pos')
+test1(flag=False)

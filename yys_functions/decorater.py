@@ -1,5 +1,5 @@
 from configparser import ConfigParser,NoOptionError
-from yys_functions.game_func import pixel_info
+# from yys_functions.game_func import pixel_info
 
 def dry_run(flag:bool=True):
     '''
@@ -17,7 +17,7 @@ def dry_run(flag:bool=True):
                     for arg in args:
                         res = cfg.get('pos_name',arg)
                         # 异常触发检测
-                        pixel_info[res]
+                        # pixel_info[res]
                 except (NoOptionError,KeyError):
                     print('error')
             else:

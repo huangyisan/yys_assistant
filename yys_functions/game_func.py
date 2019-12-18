@@ -1,10 +1,15 @@
 from yys_functions.win32_func import compare_rgb, click_mouse
 from functools import wraps
 from configparser import ConfigParser,NoOptionError
+from yys_functions.decorater import dry_run
+
 
 # running状态存储pixel info
 pixel_info = {}
 
+# control dry run mode
+flag = True
+@dry_run(flag)
 def team_page(pos='team_pic_pos',click_pos='c_team_start_pos')->bool:
     '''
     判定是否是组队界面，如果是，则点击开始按钮
@@ -18,6 +23,7 @@ def team_page(pos='team_pic_pos',click_pos='c_team_start_pos')->bool:
             click_mouse(click_pos)
             return True
 
+@dry_run(flag)
 def battle_ready(pos='simhun_ready_pos',click_pos='c_simhun_ready_pos')->bool:
     '''
     判定是否为战斗准备阶段，如果是，则点击准备鼓面按钮
@@ -28,6 +34,7 @@ def battle_ready(pos='simhun_ready_pos',click_pos='c_simhun_ready_pos')->bool:
             click_mouse(click_pos)
             return True
 
+@dry_run(flag)
 def battle_during(pos):
     '''
     判定当前是否处于战斗阶段
@@ -69,3 +76,7 @@ def reward_page(pos,click_pos):
 
     if compare_rgb(pos):
         click_mouse(click_pos)
+
+@dry_run(flag)
+def test_func(a):
+    print(a)
