@@ -1,6 +1,6 @@
-from win32_func import compare_rgb,click_mouse
+from yys_functions.win32_func import compare_rgb,click_mouse
 from configparser import ConfigParser,NoOptionError
-from game_func import dry_run
+from yys_functions.decorater import dry_run
 
 # cfg = ConfigParser()
 # config_file = '../yys_configurations/config.ini'
