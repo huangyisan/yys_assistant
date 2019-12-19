@@ -189,7 +189,7 @@ class YYSWindow(QMainWindow):
             importlib.reload(game_func)
             # 重新引入当前内存中pos配置信息
             self.reload_config()
-            
+
             code, info = soul()
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
