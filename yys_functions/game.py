@@ -34,15 +34,11 @@ def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = T
             res_list = list(filter(lambda i: i[0]==1, res_list))
             # error_info = [ i[0]==0 for i in res_list ]
             if res_list:
-                print(res_list)
                 error_info = str([i[1] for i in res_list])
 
                 return (1,error_info)
             else:
                 return (0,'配置正常')
-
-
-
         t_exec_count -=1
 
 

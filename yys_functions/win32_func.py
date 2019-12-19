@@ -147,7 +147,7 @@ def click_mouse(pos_name:str,random_num:int=4):
     '''
 
     cfg = ConfigParser()
-    config_file = '../yys_configurations/config.ini'
+    config_file = yys_config_path
     cfg.read(config_file, encoding='utf-8')
     pixel_info = eval(cfg.get('pixel_info',cfg.get('pos_name',pos_name)))
     pos = pixel_info[-1]

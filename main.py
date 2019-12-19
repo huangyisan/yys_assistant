@@ -7,6 +7,7 @@ from project_settings import yys_config_path
 from yys_functions.game import soul
 
 from configparser import ConfigParser
+import importlib
 
 class YYSWindow(QMainWindow):
 
@@ -23,14 +24,23 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_reward_yes.setChecked(True)
 
         # 程序启动后加载执行的一些任务
+        # 获取当前屏幕分辨率
         self.get_screen_resolution()
+
+        # 设定初始config.ini中dry_run flag的值为1
+        cfg.set('dry_run', 'flag', '1')
+        with open(config_file, 'w', encoding='utf-8') as configfile:
+            cfg.write(configfile)
+
+        # 载入本地配置到内存
         self.reload_config()
 
         # 追加像素点combbox内容
         pos_name_list = [v for k,v in cfg.items('pos_name')]
         self.__ui.combobox_pixel_pos.addItems(pos_name_list)
-        # # 设定combobox的默认值
-        # self.__ui.combobox_pixel_pos.setCurrentIndex(1)
+
+        # 初始化开始脚本按钮
+        self.__ui.btn_soul_start.setText('配置检测')
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
@@ -39,8 +49,13 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_pos_save.clicked.connect(self.save_list_pos)
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
         self.__ui.btn_config_check.clicked.connect(lambda: self.check_soul_config_pos(soul))
+        self.__ui.btn_soul_start.clicked.connect(self.start_soul)
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
+
+
+
+
 
     def reload_config(self):
         '''
@@ -143,16 +158,55 @@ class YYSWindow(QMainWindow):
         '''
 
         # code,info = soul()
+        isteam_leader = self.__ui.btn_radio_leader_yes.isChecked()
+        isauto = self.__ui.btn_radio_auto_yes.isChecked()
+        isreward = self.__ui.btn_radio_reward_yes.isChecked()
+
+
+
         code,info= func()
 
         if code:
             self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
         else:
             self.showMessageBox(title='提示', message=info, icon=QMessageBox.Information)
+            cfg.set('dry_run', 'flag', '0')
+            with open(config_file, 'w', encoding='utf-8') as configfile:
+                cfg.write(configfile)
+
+    def start_soul(self):
+        '''
+        启动御魂挂机脚本，
+        :return:
+        '''
+        isteam_leader = self.__ui.btn_radio_leader_yes.isChecked()
+        isauto = self.__ui.btn_radio_auto_yes.isChecked()
+        isreward = self.__ui.btn_radio_reward_yes.isChecked()
 
 
+        if self.__ui.btn_soul_start.text() == '配置检测':
+            # 让game_func重新读取config.ini中dry_run
+            importlib.reload(game_func)
+            # 重新引入当前内存中pos配置信息
+            self.reload_config()
+            
+            code, info = soul()
+            if code:
+                self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
+            else:
+                self.showMessageBox(title='提示', message=info, icon=QMessageBox.Information)
+                cfg.set('dry_run', 'flag', '0')
+                with open(config_file, 'w', encoding='utf-8') as configfile:
+                    cfg.write(configfile)
+                self.__ui.btn_soul_start.setText('开始挂机')
 
-
+        elif self.__ui.btn_soul_start.text() == '开始挂机':
+            # 让game_func重新读取config.ini中dry_run
+            importlib.reload(game_func)
+            soul()
+            cfg.set('dry_run','flag','1')
+            with open(config_file, 'w', encoding='utf-8') as configfile:
+                cfg.write(configfile)
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
@@ -177,9 +231,6 @@ class YYS_pos_config(QDialog):
 
 
 if  __name__ == "__main__":
-
-
-
     # 载入 config.ini 配置文件
     cfg = ConfigParser()
     config_file = yys_config_path
