@@ -1,5 +1,6 @@
 import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
+from PyQt5.QtCore import QProcess
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func,game_func
 from ui_pos_config import Ui_pos_config
@@ -8,6 +9,7 @@ from yys_functions.game import soul
 
 from configparser import ConfigParser
 import importlib
+import multiprocessing
 
 class YYSWindow(QMainWindow):
 
@@ -50,6 +52,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
         self.__ui.btn_config_check.clicked.connect(lambda: self.check_soul_config_pos(soul))
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
+        # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
@@ -174,6 +177,7 @@ class YYSWindow(QMainWindow):
             with open(config_file, 'w', encoding='utf-8') as configfile:
                 cfg.write(configfile)
 
+
     def start_soul(self):
         '''
         启动御魂挂机脚本，
@@ -203,10 +207,13 @@ class YYSWindow(QMainWindow):
         elif self.__ui.btn_soul_start.text() == '开始挂机':
             # 让game_func重新读取config.ini中dry_run
             importlib.reload(game_func)
-            soul()
-            cfg.set('dry_run','flag','1')
-            with open(config_file, 'w', encoding='utf-8') as configfile:
-                cfg.write(configfile)
+
+            # 防止卡死，将soul进程单独fork出子进程
+            p = multiprocessing.Process(target=soul)
+            p.start()
+            # cfg.set('dry_run','flag','1')
+            # with open(config_file, 'w', encoding='utf-8') as configfile:
+            #     cfg.write(configfile)
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):

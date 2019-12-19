@@ -13,6 +13,7 @@ def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = T
     '''
 
     if dry_run:
+        print(1111111111111111)
         t_exec_count = 1
     else:
         t_exec_count = exec_count if exec_count else True
