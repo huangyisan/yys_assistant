@@ -222,9 +222,8 @@ class YYSWindow(QMainWindow):
             print('这是主进程抓到的子进程',p.pid)
             self.child_pid = p.pid
             print(self.child_pid)
-            # cfg.set('dry_run','flag','1')
-            # with open(config_file, 'w', encoding='utf-8') as configfile:
-            #     cfg.write(configfile)
+            self.__ui.btn_soul_start.setText('挂机中...')
+            self.__ui.btn_soul_start.setEnabled(False)
 
     @staticmethod
     def stop_soul():
@@ -238,7 +237,12 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
         else:
             os.kill(self.child_pid,signal.SIGTERM)
+            cfg.set('dry_run','flag','1')
+            with open(config_file, 'w', encoding='utf-8') as configfile:
+                cfg.write(configfile)
             self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
+            self.__ui.btn_soul_start.setText('配置检测')
+            self.__ui.btn_soul_start.setEnabled(True)
 
 
 

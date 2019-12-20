@@ -661,6 +661,9 @@
       <property name="text">
        <string>停止挂机</string>
       </property>
+      <property name="shortcut">
+       <string>Ctrl+C</string>
+      </property>
      </widget>
      <widget class="QPushButton" name="btn_config_check">
       <property name="geometry">

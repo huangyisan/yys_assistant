@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -260,6 +260,7 @@ class Ui_MainWindow(object):
         self.btn_soul_start.setToolTip(_translate("MainWindow", "先检测，再开始"))
         self.btn_soul_start.setText(_translate("MainWindow", "开始挂机"))
         self.btn_soul_stop.setText(_translate("MainWindow", "停止挂机"))
+        self.btn_soul_stop.setShortcut(_translate("MainWindow", "Ctrl+C"))
         self.btn_config_check.setText(_translate("MainWindow", "配置检测"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.second_page), _translate("MainWindow", "御魂"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.fourth_page), _translate("MainWindow", "突破"))
