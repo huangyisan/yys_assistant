@@ -12,11 +12,11 @@ pixel_info = {}
 cfg = ConfigParser()
 config_file = yys_config_path
 cfg.read(config_file, encoding='utf-8')
-flag = int(cfg.get('dry_run', 'flag'))
+dry_run_flag = int(cfg.get('dry_run', 'flag'))
 
-def dry_run(flag=int(cfg.get('dry_run', 'flag'))):
+def dry_run(flag=dry_run_flag):
     '''
-    干跑装饰器，用来检测所用到的pos是否采集
+    dry run decorator，用来检测所用到的pos是否采集
     :param flag: True->enable dry run mode, False -> disable dry run mode
     :return:
     '''
@@ -31,8 +31,8 @@ def dry_run(flag=int(cfg.get('dry_run', 'flag'))):
                         pixel_info[res]
                     except (NoOptionError,KeyError):
                         error_info = '{} 缺失该坐标配置'.format(res)
-                        return (1, error_info)
-                return (0,'配置正确')
+                        return 1, error_info
+                return 0,'配置正确'
             else:
                 func(**kwargs)
         return wrapper
@@ -42,7 +42,7 @@ def dry_run(flag=int(cfg.get('dry_run', 'flag'))):
 # control dry run mode
 
 
-@dry_run(flag=int(cfg.get('dry_run', 'flag')))
+@dry_run(flag=dry_run_flag)
 def team_page(pos,click_pos)->bool:
     '''
     判定是否是组队界面，如果是，则点击开始按钮
@@ -58,7 +58,7 @@ def team_page(pos,click_pos)->bool:
             click_mouse(click_pos)
             return True
 
-@dry_run(flag=int(cfg.get('dry_run', 'flag')))
+@dry_run(flag=dry_run_flag)
 def battle_ready(pos,click_pos)->bool:
     '''
     判定是否为战斗准备阶段，如果是，则点击准备鼓面按钮。一般用不到，因为可以锁定队伍
@@ -71,7 +71,7 @@ def battle_ready(pos,click_pos)->bool:
             click_mouse(click_pos)
             return True
 
-@dry_run(flag=int(cfg.get('dry_run', 'flag')))
+@dry_run(flag=dry_run_flag)
 def battle_during(pos):
     '''
     判定当前是否处于战斗阶段
@@ -83,7 +83,7 @@ def battle_during(pos):
         if not compare_rgb(pos):
             return True
 
-@dry_run(flag)
+@dry_run(flag=dry_run_flag)
 def battle_end(pos,click_pos):
     '''
     判定当前战斗是否结束,鬼火状态消失，则一直点击，准备开箱，直到找到结束背景色或者组队界面，则停止
@@ -98,7 +98,7 @@ def battle_end(pos,click_pos):
         else:
             return True
 
-@dry_run(flag)
+@dry_run(flag=dry_run_flag)
 def select_position(click_pos):
     '''
 
@@ -107,7 +107,7 @@ def select_position(click_pos):
     '''
     click_mouse(click_pos,random_num=2)
 
-@dry_run(flag)
+@dry_run(flag=dry_run_flag)
 def reward_page(pos,click_pos):
     '''
     悬赏封印情况

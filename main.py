@@ -32,6 +32,9 @@ class YYSWindow(QMainWindow):
         # 获取当前屏幕分辨率
         self.get_screen_resolution()
 
+        # 脚本执行次数从配置文件中读取
+        self.__ui.spinbox_exec_count.setValue(self.get_exec_count())
+
         # 设定初始config.ini中dry_run flag的值为1
         cfg.set('dry_run', 'flag', '1')
         with open(config_file, 'w', encoding='utf-8') as configfile:
@@ -61,10 +64,6 @@ class YYSWindow(QMainWindow):
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
-
-
-
-
     def reload_config(self):
         '''
         重载配置文件
@@ -83,6 +82,14 @@ class YYSWindow(QMainWindow):
         text = '当前屏幕分辨率为: {}'.format(':'.join(str(v) for v in resolution))
         self.__ui.resolution_label.setText(text)
         # self.__ui.resolution_label.setText('1111')
+
+    def get_exec_count(self):
+        '''
+        初始化获取config.ini中exec_count的值
+        :return:
+        '''
+        exec_count = cfg.get('count','exec_count')
+        return int(exec_count)
 
     def showMessageBox(self, title, message,icon):
         '''
