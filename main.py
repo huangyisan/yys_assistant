@@ -55,7 +55,6 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_pos_list.clicked.connect(self.get_pos_list_config)
         self.__ui.btn_pos_save.clicked.connect(self.save_list_pos)
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
-        self.__ui.btn_config_check.clicked.connect(lambda: self.check_soul_config_pos(soul))
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
         # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
         self.__ui.btn_soul_stop.clicked.connect(self.real_stop_soul)

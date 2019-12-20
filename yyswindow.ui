@@ -300,45 +300,6 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_6">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>330</y>
-        <width>221</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>执行次数</string>
-      </property>
-      <widget class="QSpinBox" name="spinbox_exec_count">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>91</width>
-         <height>22</height>
-        </rect>
-       </property>
-       <property name="toolTip">
-        <string>脚本执行次数，若0则一直执行直到退出</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="btn_count_save">
-       <property name="geometry">
-        <rect>
-         <x>140</x>
-         <y>20</y>
-         <width>71</width>
-         <height>21</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>确定</string>
-       </property>
-      </widget>
-     </widget>
     </widget>
     <widget class="QWidget" name="second_page">
      <attribute name="title">
@@ -665,23 +626,44 @@
        <string>Ctrl+C</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="btn_config_check">
+     <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>290</y>
+        <y>280</y>
         <width>221</width>
-        <height>71</height>
+        <height>61</height>
        </rect>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>14</pointsize>
-       </font>
+      <property name="title">
+       <string>执行次数</string>
       </property>
-      <property name="text">
-       <string>配置检测</string>
-      </property>
+      <widget class="QSpinBox" name="spinbox_exec_count">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>91</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>脚本执行次数，若0则一直执行直到退出</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="btn_count_save">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>20</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>确定</string>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="fourth_page">
