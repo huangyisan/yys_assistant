@@ -305,7 +305,10 @@
      <attribute name="title">
       <string>御魂</string>
      </attribute>
-     <widget class="QGroupBox" name="groupBox_4">
+     <widget class="QGroupBox" name="groupbox_beforebattle">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -414,7 +417,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_5">
+     <widget class="QGroupBox" name="groupbox_duringbattle">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -542,7 +545,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_7">
+     <widget class="QGroupBox" name="groupbox_other">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -626,7 +629,7 @@
        <string>Ctrl+C</string>
       </property>
      </widget>
-     <widget class="QGroupBox" name="groupBox_6">
+     <widget class="QGroupBox" name="groupbox_execcout">
       <property name="geometry">
        <rect>
         <x>10</x>

@@ -91,6 +91,21 @@ class YYSWindow(QMainWindow):
         exec_count = cfg.get('count','exec_count')
         return int(exec_count)
 
+    def lock_items_soul_start(self):
+        self.__ui.groupbox_beforebattle.setEnabled(False)
+        self.__ui.groupbox_duringbattle.setEnabled(False)
+        self.__ui.groupbox_other.setEnabled(False)
+        self.__ui.groupbox_execcout.setEnabled(False)
+        self.__ui.btn_soul_start.setEnabled(False)
+
+    def release_items_soul_stop(self):
+        self.__ui.groupbox_beforebattle.setEnabled(True)
+        self.__ui.groupbox_duringbattle.setEnabled(True)
+        self.__ui.groupbox_other.setEnabled(True)
+        self.__ui.groupbox_execcout.setEnabled(True)
+        self.__ui.btn_soul_start.setEnabled(True)
+
+
     def showMessageBox(self, title, message,icon):
         '''
         弹窗组件
@@ -229,7 +244,8 @@ class YYSWindow(QMainWindow):
             self.child_pid = p.pid
             print(self.child_pid)
             self.__ui.btn_soul_start.setText('挂机中...')
-            self.__ui.btn_soul_start.setEnabled(False)
+            self.lock_items_soul_start()
+
 
     @staticmethod
     def stop_soul():
@@ -248,7 +264,8 @@ class YYSWindow(QMainWindow):
                 cfg.write(configfile)
             self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
             self.__ui.btn_soul_start.setText('配置检测')
-            self.__ui.btn_soul_start.setEnabled(True)
+            self.release_items_soul_stop()
+
 
 
 
