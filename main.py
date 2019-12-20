@@ -1,6 +1,5 @@
 import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
-from PyQt5.QtCore import QProcess
 from ui_yyswindow import Ui_MainWindow
 from yys_functions import win32_func,game_func
 from ui_pos_config import Ui_pos_config
@@ -10,6 +9,10 @@ from yys_functions.game import soul
 from configparser import ConfigParser
 import importlib
 import multiprocessing
+import os
+import signal
+import time
+
 
 class YYSWindow(QMainWindow):
 
@@ -37,6 +40,8 @@ class YYSWindow(QMainWindow):
         # 载入本地配置到内存
         self.reload_config()
 
+        self.child_pid = None
+
         # 追加像素点combbox内容
         pos_name_list = [v for k,v in cfg.items('pos_name')]
         self.__ui.combobox_pixel_pos.addItems(pos_name_list)
@@ -53,6 +58,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_config_check.clicked.connect(lambda: self.check_soul_config_pos(soul))
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
         # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
+        self.__ui.btn_soul_stop.clicked.connect(self.real_stop_soul)
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
@@ -207,13 +213,34 @@ class YYSWindow(QMainWindow):
         elif self.__ui.btn_soul_start.text() == '开始挂机':
             # 让game_func重新读取config.ini中dry_run
             importlib.reload(game_func)
+            print('主进程',os.getpid())
 
             # 防止卡死，将soul进程单独fork出子进程
-            p = multiprocessing.Process(target=soul)
+            # p = multiprocessing.Process(target=soul)
+            p = multiprocessing.Process(target=self.stop_soul)
             p.start()
+            print('这是主进程抓到的子进程',p.pid)
+            self.child_pid = p.pid
+            print(self.child_pid)
             # cfg.set('dry_run','flag','1')
             # with open(config_file, 'w', encoding='utf-8') as configfile:
             #     cfg.write(configfile)
+
+    @staticmethod
+    def stop_soul():
+        while True:
+            print('子进程当前进程', os.getpid())  # 当前自己进程的id
+            print('子进程当前进程的父进程', os.getppid())  # 父进程的id
+            time.sleep(5)
+
+    def real_stop_soul(self):
+        if self.child_pid is None:
+            self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
+        else:
+            os.kill(self.child_pid,signal.SIGTERM)
+            self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
+
+
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
@@ -238,6 +265,7 @@ class YYS_pos_config(QDialog):
 
 
 if  __name__ == "__main__":
+
     # 载入 config.ini 配置文件
     cfg = ConfigParser()
     config_file = yys_config_path

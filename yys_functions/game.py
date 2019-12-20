@@ -1,6 +1,7 @@
 from yys_functions import game_func
 
 
+
 def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = True, dry_run=True):
     '''
     类魂十执行行为，从组队界面开始到开箱后过场背景图片，为一个结算过程
@@ -41,7 +42,6 @@ def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = T
             else:
                 return (0,'配置正常')
         t_exec_count -=1
-
 
 
 
