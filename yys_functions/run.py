@@ -1,8 +1,12 @@
-def ju(n):
-    return n[0] == 0
+import keyboard
 
-a = [(0,'123'),(1,'222'),(0,'0')]
+import time
 
-# a = filter(ju,a)
-a = filter(lambda x:x[0]==0,a)
-print(list(a))
+def on_triggered():
+    print("Triggered!")
+    while True:
+        if keyboard.is_pressed('ctrl+w'):
+            time.sleep(1)
+            print(1111)
+
+on_triggered()
