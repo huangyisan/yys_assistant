@@ -20,6 +20,9 @@ class YYSWindow(QMainWindow):
 
         self.__ui.setupUi(self)
 
+        # set default tab "main page"
+        self.__ui.tabWidget.setCurrentIndex(0)
+
         # radio default checked
         self.__ui.btn_radio_left.setChecked(True)
         self.__ui.btn_radio_leader_yes.setChecked(True)
