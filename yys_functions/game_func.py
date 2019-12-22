@@ -22,7 +22,6 @@ def dry_run(flag=dry_run_flag):
     '''
     def decorate(func):
         def wrapper(**kwargs):
-            print('dry_flag is ',flag)
             if flag:
                 for key,value in kwargs.items():
                     try:
@@ -62,6 +61,7 @@ def judge_rgb_team_ui(pos)->bool:
 
     while True:
         if compare_rgb(pos):
+            print('当前为组队界面')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -75,6 +75,7 @@ def click_btn_team_start(pos,click_pos)->bool:
     while True:
         if compare_rgb(pos):
             click_mouse(click_pos)
+            print('当前挑战按钮可用')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -86,6 +87,7 @@ def judge_rgb_battle_pre_ui(pos)->bool:
     '''
     while True:
         if compare_rgb(pos):
+            print('当前为战斗准备状态')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -98,6 +100,7 @@ def judge_rgb_btn_battle_start(pos,click_pos)->bool:
     while True:
         if compare_rgb(pos):
             click_mouse(click_pos)
+            print('当前开始按钮可以点击')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -109,6 +112,7 @@ def judge_rgb_battle_during_ui(pos)->bool:
     '''
     while True:
         if compare_rgb(pos):
+            print('当前为战斗中。。。。')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -131,6 +135,7 @@ def judge_rgb_battle_ending_ui(pos)->bool:
     '''
     while True:
         if not compare_rgb(pos):
+            print('当前为战斗结束状态')
             return True
 
 @dry_run(flag=dry_run_flag)
@@ -144,5 +149,7 @@ def click_area_battle_ending(pos,click_pos)->bool:
     while True:
         if not compare_rgb(pos):
             click_mouse(click_pos)
+            print('当前进行战斗后开箱')
+        else:
             return True
 

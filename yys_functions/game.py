@@ -29,12 +29,14 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, reward: 
             res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos')
             res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
             res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
+            print('完结')
 
         else:
             res_battle_during = game_func.judge_rgb_team_ui(pos='p_multi_simhun_fire_pos')
             res_battle_end = game_func.click_btn_team_start(pos='p_background_pic_pos', click_pos='c_open_box_pos')
         if dry_run:
             res_list = [res_judge_rgb_team_ui, res_click_btn_team_start, res_judge_rgb_battle_pre_ui, res_judge_rgb_btn_battle_start, res_judge_rgb_battle_during_ui, res_judge_rgb_battle_ending_ui,res_click_area_battle_ending]
+            print(res_list)
             res_list = list(filter(lambda i: i[0] == 1, res_list))
             # error_info = [ i[0]==0 for i in res_list ]
             if res_list:

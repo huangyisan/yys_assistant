@@ -61,7 +61,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
         # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
-        self.__ui.btn_soul_stop.clicked.connect(self.real_stop_soul)
+        self.__ui.btn_soul_stop.clicked.connect(self.stop_soul)
 
         # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
 
@@ -239,7 +239,7 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul)
-            p = multiprocessing.Process(target=self.stop_soul)
+            p = multiprocessing.Process(target=soul)
             p.start()
             print('这是主进程抓到的子进程',p.pid)
             self.child_pid = p.pid
@@ -249,13 +249,13 @@ class YYSWindow(QMainWindow):
 
 
     @staticmethod
-    def stop_soul():
+    def test_stop_soul():
         while True:
             print('子进程当前进程', os.getpid())  # 当前自己进程的id
             print('子进程当前进程的父进程', os.getppid())  # 父进程的id
             time.sleep(5)
 
-    def real_stop_soul(self):
+    def stop_soul(self):
         if self.child_pid is None:
             self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
         else:
@@ -266,9 +266,6 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
             self.__ui.btn_soul_start.setText('配置检测')
             self.release_items_soul_stop()
-
-
-
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
