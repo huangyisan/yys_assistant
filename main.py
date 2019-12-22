@@ -11,8 +11,6 @@ import importlib
 import multiprocessing
 import os
 import signal
-import time
-import keyboard
 
 class YYSWindow(QMainWindow):
 
@@ -25,7 +23,7 @@ class YYSWindow(QMainWindow):
         # radio default checked
         self.__ui.btn_radio_left.setChecked(True)
         self.__ui.btn_radio_leader_yes.setChecked(True)
-        self.__ui.btn_radio_auto_yes.setChecked(True)
+        self.__ui.btn_radio_auto_no.setChecked(True)
         self.__ui.btn_radio_reward_yes.setChecked(True)
         self.__ui.checkbox_none_pos.setChecked(True)
 
@@ -271,9 +269,8 @@ class YYSWindow(QMainWindow):
             p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             p.start()
 
-            print('这是主进程抓到的子进程',p.pid)
+            # 将子进程赋予self.child_pid变量
             self.child_pid = p.pid
-            print(self.child_pid)
             self.__ui.btn_soul_start.setText('挂机中...')
             self.lock_items_soul()
             self.__ui.btn_soul_start.setEnabled(False)

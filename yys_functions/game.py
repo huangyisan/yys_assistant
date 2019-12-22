@@ -186,8 +186,6 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                 error_info = '{}\n'
                 for i in res_list:
                     error += error_info.format(i[1])
-                # print([i[1] for i in res_list])
-                # error_info = str([i[1] for i in res_list])
                 return 1, error
             else:
                 return 0, '配置正常'
