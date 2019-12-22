@@ -194,7 +194,6 @@ class YYSWindow(QMainWindow):
         isreward = self.__ui.btn_radio_reward_yes.isChecked()
 
 
-
         code,info= func()
 
         if code:
@@ -222,7 +221,7 @@ class YYSWindow(QMainWindow):
             # 重新引入当前内存中pos配置信息
             self.reload_config()
 
-            code, info = soul()
+            code, info = soul(dry_run=True)
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
             else:
@@ -239,7 +238,7 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul)
-            p = multiprocessing.Process(target=soul)
+            p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
             p.start()
             print('这是主进程抓到的子进程',p.pid)
             self.child_pid = p.pid
