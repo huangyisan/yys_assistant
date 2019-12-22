@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.13.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -244,7 +244,7 @@ class Ui_MainWindow(object):
         self.checkbox_fourth_pos.setText(_translate("MainWindow", "四号"))
         self.checkbox_none_pos.setText(_translate("MainWindow", "否"))
         self.checkbox_fifth_pos.setText(_translate("MainWindow", "五号"))
-        self.label_3.setText(_translate("MainWindow", "左起式神焦点"))
+        self.label_3.setText(_translate("MainWindow", "点选式神(左起)"))
         self.groupbox_other.setTitle(_translate("MainWindow", "其他"))
         self.label_5.setText(_translate("MainWindow", "是否接受封印悬赏？"))
         self.btn_radio_reward_yes.setText(_translate("MainWindow", "是"))

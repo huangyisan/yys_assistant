@@ -12,7 +12,7 @@ import multiprocessing
 import os
 import signal
 import time
-import re
+import keyboard
 
 class YYSWindow(QMainWindow):
 
@@ -27,6 +27,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_leader_yes.setChecked(True)
         self.__ui.btn_radio_auto_yes.setChecked(True)
         self.__ui.btn_radio_reward_yes.setChecked(True)
+        self.__ui.checkbox_none_pos.setChecked(True)
 
         # 程序启动后加载执行的一些任务
         # 获取当前屏幕分辨率
@@ -204,16 +205,35 @@ class YYSWindow(QMainWindow):
             with open(config_file, 'w', encoding='utf-8') as configfile:
                 cfg.write(configfile)
 
+    def get_shisheng_pos(self):
+        '''
+        获取式神位置点选
+        :return:
+        '''
+        if self.__ui.checkbox_first_pos.isChecked():
+            return 1
+        elif self.__ui.checkbox_none_pos.isChecked():
+            return 0
+        elif self.__ui.checkbox_second_pos.isChecked():
+            return 2
+        elif self.__ui.checkbox_third_pos.isChecked():
+            return 3
+        elif self.__ui.checkbox_fourth_pos.isChecked():
+            return 4
+        elif self.__ui.checkbox_fifth_pos.isChecked():
+            return 5
+
 
     def start_soul(self):
         '''
         启动御魂挂机脚本，
         :return:
         '''
-        isteam_leader = self.__ui.btn_radio_leader_yes.isChecked()
-        isauto = self.__ui.btn_radio_auto_yes.isChecked()
-        isreward = self.__ui.btn_radio_reward_yes.isChecked()
+        focus = self.get_shisheng_pos()
 
+        exec_count = self.__ui.spinbox_exec_count.value()
+        team_leader = self.__ui.btn_radio_leader_yes.isChecked()
+        reward = self.__ui.btn_radio_reward_yes.isChecked()
 
         if self.__ui.btn_soul_start.text() == '配置检测':
             # 让game_func重新读取config.ini中dry_run
@@ -221,7 +241,8 @@ class YYSWindow(QMainWindow):
             # 重新引入当前内存中pos配置信息
             self.reload_config()
 
-            code, info = soul(dry_run=True)
+            # code, info = soul(focus=focus, exec_count=exec_count, team_leader=team_leader, reward=reward, dry_run=True)
+            code, info = soul(focus=focus,  dry_run=True)
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
             else:
@@ -234,18 +255,17 @@ class YYSWindow(QMainWindow):
         elif self.__ui.btn_soul_start.text() == '开始挂机':
             # 让game_func重新读取config.ini中dry_run
             importlib.reload(game_func)
-            print('主进程',os.getpid())
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul)
-            p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
+            p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'reward':reward, 'dry_run':False})
             p.start()
+
             print('这是主进程抓到的子进程',p.pid)
             self.child_pid = p.pid
             print(self.child_pid)
             self.__ui.btn_soul_start.setText('挂机中...')
             self.lock_items_soul_start()
-
 
     @staticmethod
     def test_stop_soul():
@@ -259,12 +279,19 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
         else:
             os.kill(self.child_pid,signal.SIGTERM)
+            self.child_pid = None
             cfg.set('dry_run','flag','1')
             with open(config_file, 'w', encoding='utf-8') as configfile:
                 cfg.write(configfile)
             self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
             self.__ui.btn_soul_start.setText('配置检测')
             self.release_items_soul_stop()
+
+    def stop_soul_by_hotkey(self):
+        while True:
+            if keyboard.is_pressed('ctrl+c'):
+                os.kill(self.child_pid, signal.SIGTERM)
+            time.sleep(1)
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):

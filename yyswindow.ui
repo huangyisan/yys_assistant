@@ -541,7 +541,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>左起式神焦点</string>
+        <string>点选式神(左起)</string>
        </property>
       </widget>
      </widget>

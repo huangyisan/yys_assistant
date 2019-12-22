@@ -3,7 +3,12 @@ import pyautogui as pag
 from configparser import ConfigParser
 import random
 import pyautogui
+import keyboard
+import os
+import signal
+import time
 from project_settings import yys_config_path
+
 
 def get_screen_resolution()->tuple:
     '''
@@ -159,4 +164,12 @@ def click_mouse(pos_name:str,random_num:int=4):
     # 鼠标进行移动, 并且左单击
     pyautogui.moveTo(random_x, random_y, duration=0.1)
     pyautogui.click(button='left')
+
+def stop_child_process(ppid):
+    while True:
+        if keyboard.is_pressed('ctrl+c'):
+            os.kill(ppid, signal.SIGTERM)
+            time.sleep(1)
+
+
 

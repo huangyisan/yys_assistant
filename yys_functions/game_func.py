@@ -141,7 +141,7 @@ def judge_rgb_battle_ending_ui(pos)->bool:
 @dry_run(flag=dry_run_flag)
 def click_area_battle_ending(pos,click_pos)->bool:
     '''
-    stop click if detect any rgb in background picture
+    stop click if detect any rgb in background picture or invite ui
     :param pos:
     :param click_pos:
     :return:
@@ -152,4 +152,3 @@ def click_area_battle_ending(pos,click_pos)->bool:
             print('当前进行战斗后开箱')
         else:
             return True
-
