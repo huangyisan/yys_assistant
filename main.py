@@ -11,6 +11,7 @@ import importlib
 import multiprocessing
 import os
 import signal
+import psutil
 
 class YYSWindow(QMainWindow):
 
@@ -284,7 +285,10 @@ class YYSWindow(QMainWindow):
             if self.child_pid is None:
                 self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
             else:
-                os.kill(self.child_pid,signal.SIGTERM)
+                try:
+                    os.kill(self.child_pid,signal.SIGTERM)
+                except OSError:
+                    pass
                 self.child_pid = None
                 cfg.set('dry_run','flag','1')
                 with open(config_file, 'w', encoding='utf-8') as configfile:

@@ -43,7 +43,8 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
                     action_delay()
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(pos=focus_dict.get(focus))
+
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
                 res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
                 res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
 
@@ -62,7 +63,7 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   4: 'c_btn_shisheng_fourth_position_pos',
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(pos=focus_dict.get(focus))
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
                 res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
 
         # 非队长情况,无需考虑组队界面
@@ -81,7 +82,7 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
                     action_delay()
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(pos=focus_dict.get(focus))
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
                 res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
                 res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
 
@@ -99,7 +100,7 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   4: 'c_btn_shisheng_fourth_position_pos',
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(pos=focus_dict.get(focus))
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
                 res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
 
         if dry_run:
