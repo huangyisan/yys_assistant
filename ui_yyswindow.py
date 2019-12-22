@@ -195,7 +195,7 @@ class Ui_MainWindow(object):
         self.spinbox_exec_count.setGeometry(QtCore.QRect(10, 20, 91, 22))
         self.spinbox_exec_count.setObjectName("spinbox_exec_count")
         self.btn_count_save = QtWidgets.QPushButton(self.groupbox_execcout)
-        self.btn_count_save.setGeometry(QtCore.QRect(140, 20, 71, 21))
+        self.btn_count_save.setGeometry(QtCore.QRect(130, 20, 71, 21))
         self.btn_count_save.setObjectName("btn_count_save")
         self.tabWidget.addTab(self.second_page, "")
         self.fourth_page = QtWidgets.QWidget()

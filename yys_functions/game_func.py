@@ -29,8 +29,8 @@ def dry_run(flag=dry_run_flag):
                         # 异常触发检测
                         pixel_info[res]
                     except (NoOptionError,KeyError):
-                        error_info = '{} 缺失该坐标配置'.format(res)
-                        return 1, error_info
+                        error_pos = '{}'.format(res)
+                        return 1, error_pos
                 return 0,'配置正确'
             else:
                 func(**kwargs)
@@ -149,6 +149,7 @@ def click_area_battle_ending(pos,click_pos)->bool:
     while True:
         if not compare_rgb(pos):
             click_mouse(click_pos)
+            time.sleep(0.3)
             print('当前进行战斗后开箱')
         else:
             return True

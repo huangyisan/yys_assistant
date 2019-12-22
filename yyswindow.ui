@@ -657,7 +657,7 @@
       <widget class="QPushButton" name="btn_count_save">
        <property name="geometry">
         <rect>
-         <x>140</x>
+         <x>130</x>
          <y>20</y>
          <width>71</width>
          <height>21</height>

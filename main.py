@@ -93,12 +93,12 @@ class YYSWindow(QMainWindow):
         exec_count = cfg.get('count','exec_count')
         return int(exec_count)
 
-    def lock_items_soul_start(self):
+    def lock_items_soul(self):
         self.__ui.groupbox_beforebattle.setEnabled(False)
         self.__ui.groupbox_duringbattle.setEnabled(False)
         self.__ui.groupbox_other.setEnabled(False)
         self.__ui.groupbox_execcout.setEnabled(False)
-        self.__ui.btn_soul_start.setEnabled(False)
+
 
     def release_items_soul_stop(self):
         self.__ui.groupbox_beforebattle.setEnabled(True)
@@ -233,6 +233,7 @@ class YYSWindow(QMainWindow):
 
         exec_count = self.__ui.spinbox_exec_count.value()
         team_leader = self.__ui.btn_radio_leader_yes.isChecked()
+        auto = self.__ui.btn_radio_auto_yes.isChecked()
         reward = self.__ui.btn_radio_reward_yes.isChecked()
 
         if self.__ui.btn_soul_start.text() == '配置检测':
@@ -241,8 +242,8 @@ class YYSWindow(QMainWindow):
             # 重新引入当前内存中pos配置信息
             self.reload_config()
 
-            # code, info = soul(focus=focus, exec_count=exec_count, team_leader=team_leader, reward=reward, dry_run=True)
-            code, info = soul(focus=focus,  dry_run=True)
+            code, info = soul(focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=True)
+            # code, info = soul(focus=focus,  dry_run=True)
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
             else:
@@ -250,6 +251,7 @@ class YYSWindow(QMainWindow):
                 cfg.set('dry_run', 'flag', '0')
                 with open(config_file, 'w', encoding='utf-8') as configfile:
                     cfg.write(configfile)
+                self.lock_items_soul()
                 self.__ui.btn_soul_start.setText('开始挂机')
 
         elif self.__ui.btn_soul_start.text() == '开始挂机':
@@ -258,14 +260,15 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul)
-            p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'reward':reward, 'dry_run':False})
+            p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             p.start()
 
             print('这是主进程抓到的子进程',p.pid)
             self.child_pid = p.pid
             print(self.child_pid)
             self.__ui.btn_soul_start.setText('挂机中...')
-            self.lock_items_soul_start()
+            self.lock_items_soul()
+            self.__ui.btn_soul_start.setEnabled(False)
 
     @staticmethod
     def test_stop_soul():
