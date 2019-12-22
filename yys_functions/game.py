@@ -1,8 +1,7 @@
 from yys_functions import game_func
 
 
-
-def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = True, dry_run=True):
+def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, reward: bool = True, dry_run=True):
     '''
     类魂十执行行为，从组队界面开始到开箱后过场背景图片，为一个结算过程
     :param focus: 式神位置
@@ -14,35 +13,34 @@ def soul(focus:int=1, exec_count:int=1, team_leader:bool = True, reward:bool = T
     '''
 
     if dry_run:
-        print(1111111111111111)
         t_exec_count = 1
     else:
         t_exec_count = exec_count if exec_count else True
 
-    res_team_page = res_battle_during = res_battle_end = (None,None)
+        res_judge_rgb_team_ui = res_click_btn_team_start = res_judge_rgb_battle_pre_ui = res_judge_rgb_btn_battle_start = res_judge_rgb_battle_during_ui = res_judge_rgb_battle_ending_ui = res_click_area_battle_ending = (
+            None, None)
 
     while t_exec_count:
         if team_leader:
-            res_team_page = game_func.team_page(pos='p_team_pic_pos',click_pos='c_team_start_pos')
-            res_battle_during = game_func.battle_during(pos='p_multi_simhun_fire_pos')
-            res_battle_end = game_func.battle_end(pos='p_background_pic_pos',click_pos='c_open_box_pos')
-
+            res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos')
+            res_click_btn_team_start = game_func.click_btn_team_start(pos='j_btn_team_start_pos', click_pos='c_btn_team_start_pos')
+            res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos')
+            res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(pos='j_rgb_btn_battle_start_pos',click_pos='c_btn_battle_start_pos')
+            res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos')
+            res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
+            res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
 
         else:
-            res_battle_during = game_func.battle_during(pos='p_multi_simhun_fire_pos')
-            res_battle_end = game_func.battle_end(pos='p_background_pic_pos',click_pos='c_open_box_pos')
+            res_battle_during = game_func.judge_rgb_team_ui(pos='p_multi_simhun_fire_pos')
+            res_battle_end = game_func.click_btn_team_start(pos='p_background_pic_pos', click_pos='c_open_box_pos')
         if dry_run:
-            res_list = [res_team_page,res_battle_during,res_battle_end]
-            res_list = list(filter(lambda i: i[0]==1, res_list))
+            res_list = [res_judge_rgb_team_ui, res_click_btn_team_start, res_judge_rgb_battle_pre_ui, res_judge_rgb_btn_battle_start, res_judge_rgb_battle_during_ui, res_judge_rgb_battle_ending_ui,res_click_area_battle_ending]
+            res_list = list(filter(lambda i: i[0] == 1, res_list))
             # error_info = [ i[0]==0 for i in res_list ]
             if res_list:
                 error_info = str([i[1] for i in res_list])
 
-                return (1,error_info)
+                return (1, error_info)
             else:
-                return (0,'配置正常')
-        t_exec_count -=1
-
-
-
-
+                return (0, '配置正常')
+        t_exec_count -= 1

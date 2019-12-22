@@ -12,7 +12,7 @@ import multiprocessing
 import os
 import signal
 import time
-
+import re
 
 class YYSWindow(QMainWindow):
 
@@ -47,6 +47,7 @@ class YYSWindow(QMainWindow):
 
         # 追加像素点combbox内容
         pos_name_list = [v for k,v in cfg.items('pos_name')]
+        pos_name_list = filter(lambda x:x.startswith('判') or x.startswith('点'), pos_name_list)
         self.__ui.combobox_pixel_pos.addItems(pos_name_list)
 
         # 初始化开始脚本按钮

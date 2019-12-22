@@ -38,83 +38,111 @@ def dry_run(flag=dry_run_flag):
         return wrapper
     return decorate
 
-
-# control dry run mode
-
+@dry_run(flag=dry_run_flag)
+def judge_rgb_reward_ui(reward_pos,click_reward_pos)->bool:
+    '''
+    是否为悬赏封印
+    :param pos:
+    :param click_pos:
+    :return:
+    '''
+    while True:
+        if compare_rgb(reward_pos):
+            click_mouse(click_reward_pos)
+            return True
+        return True
 
 @dry_run(flag=dry_run_flag)
-def team_page(pos,click_pos)->bool:
+def judge_rgb_team_ui(pos)->bool:
     '''
-    判定是否是组队界面，如果是，则点击开始按钮
+    if in team page, return loop
     :param pos:  判断界面
-    :param click_pos: 开始按钮
     :return:
     '''
 
     while True:
-        time.sleep(1)
-        print('team_page stage')
+        if compare_rgb(pos):
+            return True
+
+@dry_run(flag=dry_run_flag)
+def click_btn_team_start(pos,click_pos)->bool:
+    '''
+    click team start butten if it is active
+    :param pos: 挑战按钮是否可点击
+    :param click_pos:挑战按钮
+    :return:
+    '''
+    while True:
         if compare_rgb(pos):
             click_mouse(click_pos)
             return True
 
 @dry_run(flag=dry_run_flag)
-def battle_ready(pos,click_pos)->bool:
+def judge_rgb_battle_pre_ui(pos)->bool:
     '''
-    判定是否为战斗准备阶段，如果是，则点击准备鼓面按钮。一般用不到，因为可以锁定队伍
-    :return: 
+    if in battle page ,return loop
+    :param pos: 战斗准备状态
+    :return:
     '''
     while True:
-        time.sleep(1)
-        print('battle_ready stage')
+        if compare_rgb(pos):
+            return True
+
+@dry_run(flag=dry_run_flag)
+def judge_rgb_btn_battle_start(pos,click_pos)->bool:
+    '''
+    click battle start button if it is active（when set "manual start" in setting page）
+    :param pos:
+    :return:
+    '''
+    while True:
         if compare_rgb(pos):
             click_mouse(click_pos)
             return True
 
 @dry_run(flag=dry_run_flag)
-def battle_during(pos):
+def judge_rgb_battle_during_ui(pos)->bool:
     '''
-    判定当前是否处于战斗阶段
+    if in battle ,return loop
+    :param pos:
     :return:
     '''
     while True:
-        time.sleep(1)
-        print('battle_during stage')
+        if compare_rgb(pos):
+            return True
+
+@dry_run(flag=dry_run_flag)
+def click_btn_ShiSheng(click_pos)->bool:
+    '''
+    click ShiSheng position. (if specify "ShiSheng position" in setting page)
+    :param click_pos:
+    :return:
+    '''
+    click_mouse(click_pos)
+    return True
+
+
+@dry_run(flag=dry_run_flag)
+def judge_rgb_battle_ending_ui(pos)->bool:
+    '''
+    click area avoild items, before detect specify background
+    :param pos:
+    :return:
+    '''
+    while True:
         if not compare_rgb(pos):
             return True
 
 @dry_run(flag=dry_run_flag)
-def battle_end(pos,click_pos):
+def click_area_battle_ending(pos,click_pos)->bool:
     '''
-    判定当前战斗是否结束,鬼火状态消失，则一直点击，准备开箱，直到找到结束背景色或者组队界面，则停止
-    :param pos: 鬼火位置
-    :param click_pos:  开箱位置
+    stop click if detect any rgb in background picture
+    :param pos:
+    :param click_pos:
     :return:
     '''
-
     while True:
         if not compare_rgb(pos):
             click_mouse(click_pos)
-        else:
             return True
 
-@dry_run(flag=dry_run_flag)
-def select_position(click_pos):
-    '''
-
-    :param click_pos: 式神位置
-    :return:
-    '''
-    click_mouse(click_pos,random_num=2)
-
-@dry_run(flag=dry_run_flag)
-def reward_page(pos,click_pos):
-    '''
-    悬赏封印情况
-    :param pos:  悬赏封印pos
-    :param click_pos:  是否接受
-    :return:
-    '''
-
-    if compare_rgb(pos):
-        click_mouse(click_pos)
