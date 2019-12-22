@@ -36,7 +36,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -212,8 +212,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>30</y>
-         <width>151</width>
+         <y>20</y>
+         <width>201</width>
          <height>22</height>
         </rect>
        </property>
@@ -221,9 +221,9 @@
       <widget class="QPushButton" name="btn_collect_piexl">
        <property name="geometry">
         <rect>
-         <x>170</x>
-         <y>30</y>
-         <width>41</width>
+         <x>10</x>
+         <y>50</y>
+         <width>201</width>
          <height>21</height>
         </rect>
        </property>
@@ -231,14 +231,14 @@
         <string>请使用Alt+P进行采点</string>
        </property>
        <property name="text">
-        <string>Alt+&amp;P</string>
+        <string>按Alt+&amp;P进行采集</string>
        </property>
       </widget>
       <widget class="QLabel" name="label_piexl">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>80</y>
+         <y>90</y>
          <width>201</width>
          <height>21</height>
         </rect>
@@ -258,7 +258,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>60</y>
+         <y>70</y>
          <width>201</width>
          <height>16</height>
         </rect>

@@ -99,6 +99,13 @@ class YYSWindow(QMainWindow):
         self.__ui.groupbox_other.setEnabled(False)
         self.__ui.groupbox_execcout.setEnabled(False)
 
+    def release_items_soul(self):
+        self.__ui.groupbox_beforebattle.setEnabled(True)
+        self.__ui.groupbox_duringbattle.setEnabled(True)
+        self.__ui.groupbox_other.setEnabled(True)
+        self.__ui.groupbox_execcout.setEnabled(True)
+
+
 
     def release_items_soul_stop(self):
         self.__ui.groupbox_beforebattle.setEnabled(True)
@@ -253,6 +260,7 @@ class YYSWindow(QMainWindow):
                     cfg.write(configfile)
                 self.lock_items_soul()
                 self.__ui.btn_soul_start.setText('开始挂机')
+                self.__ui.btn_soul_stop.setText('解除配置锁定')
 
         elif self.__ui.btn_soul_start.text() == '开始挂机':
             # 让game_func重新读取config.ini中dry_run
@@ -269,32 +277,30 @@ class YYSWindow(QMainWindow):
             self.__ui.btn_soul_start.setText('挂机中...')
             self.lock_items_soul()
             self.__ui.btn_soul_start.setEnabled(False)
-
-    @staticmethod
-    def test_stop_soul():
-        while True:
-            print('子进程当前进程', os.getpid())  # 当前自己进程的id
-            print('子进程当前进程的父进程', os.getppid())  # 父进程的id
-            time.sleep(5)
+            self.__ui.btn_soul_stop.setText('停止挂机')
 
     def stop_soul(self):
-        if self.child_pid is None:
-            self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
-        else:
-            os.kill(self.child_pid,signal.SIGTERM)
-            self.child_pid = None
-            cfg.set('dry_run','flag','1')
+        if self.__ui.btn_soul_stop.text() == '停止挂机':
+            if self.child_pid is None:
+                self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
+            else:
+                os.kill(self.child_pid,signal.SIGTERM)
+                self.child_pid = None
+                cfg.set('dry_run','flag','1')
+                with open(config_file, 'w', encoding='utf-8') as configfile:
+                    cfg.write(configfile)
+                self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
+                self.__ui.btn_soul_start.setText('配置检测')
+                self.release_items_soul_stop()
+        elif self.__ui.btn_soul_stop.text() == '解除配置锁定':
+            self.release_items_soul()
+            self.__ui.btn_soul_start.setText('配置检测')
+            self.__ui.btn_soul_stop.setText('停止挂机')
+            cfg.set('dry_run', 'flag', '1')
             with open(config_file, 'w', encoding='utf-8') as configfile:
                 cfg.write(configfile)
-            self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
-            self.__ui.btn_soul_start.setText('配置检测')
-            self.release_items_soul_stop()
+            self.showMessageBox(title='提示', message='已解除配置锁定', icon=QMessageBox.Information)
 
-    def stop_soul_by_hotkey(self):
-        while True:
-            if keyboard.is_pressed('ctrl+c'):
-                os.kill(self.child_pid, signal.SIGTERM)
-            time.sleep(1)
 
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
