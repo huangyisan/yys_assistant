@@ -1,4 +1,4 @@
-from yys_functions import game_func
+import game_func
 import time
 
 def action_delay(sleep=1):

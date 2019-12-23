@@ -1,4 +1,4 @@
-from yys_functions.win32_func import compare_rgb, click_mouse
+from win32_func import compare_rgb, click_mouse
 from configparser import ConfigParser,NoOptionError
 # from yys_functions.decorater import dry_run
 from project_settings import yys_config_path

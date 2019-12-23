@@ -1,10 +1,10 @@
 import sys
 from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
 from ui_yyswindow import Ui_MainWindow
-from yys_functions import win32_func,game_func
+import win32_func,game_func
 from ui_pos_config import Ui_pos_config
 from project_settings import yys_config_path
-from yys_functions.game import soul
+from game import soul
 
 from configparser import ConfigParser
 import importlib
