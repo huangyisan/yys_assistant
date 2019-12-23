@@ -4,8 +4,6 @@ from configparser import ConfigParser,NoOptionError
 from project_settings import yys_config_path
 import time
 
-
-
 # running状态存储pixel info
 pixel_info = {}
 
