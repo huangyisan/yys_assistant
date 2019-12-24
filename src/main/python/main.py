@@ -288,6 +288,7 @@ class YYSWindow(QMainWindow):
             # self.p = MyThread(parent=self)
             self.p.start()
 
+
             # 将子进程赋予self.child_pid变量
             # self.child_pid = p.pid
             self.__ui.btn_soul_start.setText('挂机中...')
@@ -296,6 +297,8 @@ class YYSWindow(QMainWindow):
             self.__ui.btn_soul_stop.setText('停止挂机')
 
     def stop_soul(self):
+        self.p.terminate()
+        print(1111)
         if self.__ui.btn_soul_stop.text() == '停止挂机':
             cfg.set('execute', 'exec_flag', '0')
             with open(config_file, 'w', encoding='utf-8') as configfile:
