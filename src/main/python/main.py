@@ -1,6 +1,7 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
+from PyQt5.QtCore import QRunnable,QThreadPool,pyqtSlot
 import sys
-from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
+from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog
 from ui_yyswindow import Ui_MainWindow
 import win32_func,game_func
 from ui_pos_config import Ui_pos_config
@@ -63,6 +64,9 @@ class YYSWindow(QMainWindow):
 
         # 初始化开始脚本按钮
         self.__ui.btn_soul_start.setText('配置检测')
+
+        # initial thread pool
+        self.threadpool = QThreadPool()
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
@@ -278,11 +282,13 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
-            p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
-            p.start()
+            p = Worker(fn=soul,)
+            # p = Worker(fn=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
+            # p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
+            self.threadpool.start(p)
 
             # 将子进程赋予self.child_pid变量
-            self.child_pid = p.pid
+            # self.child_pid = p.pid
             self.__ui.btn_soul_start.setText('挂机中...')
             self.lock_items_soul()
             self.__ui.btn_soul_start.setEnabled(False)
@@ -335,6 +341,35 @@ class YYS_pos_config(QDialog):
         # 关闭自身window
         self.__ui.btn_ok.clicked.connect(self.close)
 
+class Worker(QRunnable):
+    '''
+    Worker thread
+
+    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
+
+    :param callback: The function callback to run on this worker thread. Supplied args and
+                     kwargs will be passed through to the runner.
+    :type callback: function
+    :param args: Arguments to pass to the callback function
+    :param kwargs: Keywords to pass to the callback function
+
+    '''
+
+    def __init__(self, fn, *args, **kwargs):
+        super(Worker, self).__init__()
+        # Store constructor arguments (re-used for processing)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+        print(self.args)
+        print(self.kwargs)
+
+    @pyqtSlot()
+    def run(self):
+        '''
+        Initialise the runner function with passed args, kwargs.
+        '''
+        self.fn(*self.args, **self.kwargs)
 
 if  __name__ == "__main__":
     appctxt = AppContext()
