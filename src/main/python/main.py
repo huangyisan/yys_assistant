@@ -1,5 +1,5 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
-from PyQt5.QtCore import QRunnable,QThreadPool,pyqtSlot
+from PyQt5.QtCore import QRunnable,QThread,pyqtSlot
 import sys
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
 from ui_yyswindow import Ui_MainWindow
@@ -12,6 +12,7 @@ from configparser import ConfigParser
 import importlib
 import os
 import signal
+import time
 
 class AppContext(ApplicationContext):
 
@@ -64,7 +65,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_soul_start.setText('配置检测')
 
         # initial thread pool
-        self.threadpool = QThreadPool()
+        # self.threadpool = QThreadPool()
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
@@ -280,10 +281,12 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
-            p = Worker(fn=soul, focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
+            self.p = MyThread(fn=soul, focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
             # p = Worker(fn=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             # p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
-            self.threadpool.start(p)
+            # p.start
+            # self.p = MyThread(parent=self)
+            self.p.start()
 
             # 将子进程赋予self.child_pid变量
             # self.child_pid = p.pid
@@ -294,6 +297,10 @@ class YYSWindow(QMainWindow):
 
     def stop_soul(self):
         if self.__ui.btn_soul_stop.text() == '停止挂机':
+            cfg.set('execute', 'exec_flag', '0')
+            with open(config_file, 'w', encoding='utf-8') as configfile:
+                cfg.write(configfile)
+
             if self.child_pid is None:
                 self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
             else:
@@ -339,33 +346,23 @@ class YYS_pos_config(QDialog):
         # 关闭自身window
         self.__ui.btn_ok.clicked.connect(self.close)
 
-class Worker(QRunnable):
-    '''
-    Worker thread
-
-    Inherits from QRunnable to handler worker thread setup, signals and wrap-up.
-
-    :param callback: The function callback to run on this worker thread. Supplied args and
-                     kwargs will be passed through to the runner.
-    :type callback: function
-    :param args: Arguments to pass to the callback function
-    :param kwargs: Keywords to pass to the callback function
-
-    '''
-
-    def __init__(self, fn, *args, **kwargs):
-        super(Worker, self).__init__()
-        # Store constructor arguments (re-used for processing)
+class MyThread(QThread):
+    def __init__(self,fn, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
+        QThread.__init__(self)
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
 
-    @pyqtSlot()
+    # @pyqtSlot()
     def run(self):
-        '''
-        Initialise the runner function with passed args, kwargs.
-        '''
+        # print(111)
+        # time.sleep(5)
         self.fn(*self.args, **self.kwargs)
+
+
+
+    pass
 
 if  __name__ == "__main__":
     appctxt = AppContext()
@@ -374,6 +371,9 @@ if  __name__ == "__main__":
     cfg = ConfigParser()
     config_file = yys_config_path
     cfg.read(config_file, encoding='utf-8')
+
+    # my_thread = QThread()
+    # my_thread.start()
     exit_code = appctxt.run()
     sys.exit(exit_code)
 

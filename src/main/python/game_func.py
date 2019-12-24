@@ -3,6 +3,7 @@ from configparser import ConfigParser,NoOptionError
 # from yys_functions.decorater import dry_run
 from project_settings import yys_config_path
 import time
+import sys
 
 # running状态存储pixel info
 pixel_info = {}
@@ -58,9 +59,15 @@ def judge_rgb_team_ui(pos)->bool:
     '''
 
     while True:
+        # cfg.read(config_file, encoding='utf-8')
+        # if cfg.get('execute', 'exec_flag') == '1':
+        print('testttt')
         if compare_rgb(pos):
             print('当前为组队界面')
             return True
+        # else:
+        #     print('退出')
+        #     sys.exit(0)
 
 @dry_run(flag=dry_run_flag)
 def click_btn_team_start(pos,click_pos)->bool:
