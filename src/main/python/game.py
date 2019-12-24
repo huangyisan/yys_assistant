@@ -4,7 +4,7 @@ import time
 def action_delay(sleep=1):
     time.sleep(sleep)
 
-def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bool = True, reward: bool = True, dry_run=False):
+def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bool = True, reward: bool = True, dry_run=True):
     '''
     类魂十执行行为，从组队界面开始到开箱后过场背景图片，为一个结算过程
     :param focus: 式神位置

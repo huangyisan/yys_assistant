@@ -1,7 +1,7 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5.QtCore import QRunnable,QThreadPool,pyqtSlot
 import sys
-from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
 from ui_yyswindow import Ui_MainWindow
 import win32_func,game_func
 from ui_pos_config import Ui_pos_config
@@ -10,7 +10,6 @@ from game import soul
 
 from configparser import ConfigParser
 import importlib
-import multiprocessing
 import os
 import signal
 
@@ -282,7 +281,7 @@ class YYSWindow(QMainWindow):
 
             # 防止卡死，将soul进程单独fork出子进程
             # p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
-            p = Worker(fn=soul,)
+            p = Worker(fn=soul, focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
             # p = Worker(fn=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             # p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             self.threadpool.start(p)
@@ -361,8 +360,6 @@ class Worker(QRunnable):
         self.fn = fn
         self.args = args
         self.kwargs = kwargs
-        print(self.args)
-        print(self.kwargs)
 
     @pyqtSlot()
     def run(self):
