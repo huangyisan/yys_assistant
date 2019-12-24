@@ -298,6 +298,7 @@ class YYSWindow(QMainWindow):
 
     def stop_soul(self):
         self.p.terminate()
+        self.p.wait()
         print(1111)
         if self.__ui.btn_soul_stop.text() == '停止挂机':
             cfg.set('execute', 'exec_flag', '0')
