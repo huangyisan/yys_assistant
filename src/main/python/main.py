@@ -13,7 +13,9 @@ import multiprocessing
 import os
 import signal
 
+
 class AppContext(ApplicationContext):
+
     def run(self):
         window = YYSWindow()
         window.show()
@@ -275,7 +277,7 @@ class YYSWindow(QMainWindow):
             importlib.reload(game_func)
 
             # 防止卡死，将soul进程单独fork出子进程
-            # p = multiprocessing.Process(target=soul)
+            # p = multiprocessing.Process(target=soul,kwargs={'dry_run':False})
             p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
             p.start()
 
