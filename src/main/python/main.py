@@ -13,7 +13,6 @@ import importlib
 import os
 import signal
 
-
 class AppContext(ApplicationContext):
 
     def run(self):
