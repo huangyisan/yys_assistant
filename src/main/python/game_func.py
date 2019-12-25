@@ -12,7 +12,7 @@ cfg = ConfigParser()
 config_file = yys_config_path
 cfg.read(config_file, encoding='utf-8')
 dry_run_flag = int(cfg.get('dry_run', 'flag'))
-sleep_time = int(cfg.get('time','sleep_time'))
+sleep_time = float(cfg.get('time','sleep_time'))
 
 
 def dry_run(flag=dry_run_flag):
