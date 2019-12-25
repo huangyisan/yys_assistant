@@ -29,11 +29,11 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
         if team_leader:
             # 未开启自动情况
             if not auto:
-                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos')
-                res_click_btn_team_start = game_func.click_btn_team_start(pos='j_btn_team_start_pos', click_pos='c_btn_team_start_pos')
-                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos')
-                res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(pos='j_rgb_btn_battle_start_pos',click_pos='c_btn_battle_start_pos')
-                res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos')
+                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_click_btn_team_start = game_func.click_btn_team_start(pos='j_btn_team_start_pos', click_pos='c_btn_team_start_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(pos='j_rgb_btn_battle_start_pos',click_pos='c_btn_battle_start_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 # 设定式神点选情况
                 if focus:
                     focus_dict = {1: 'c_btn_shisheng_first_position_pos',
@@ -44,17 +44,17 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   }
                     action_delay()
 
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
-                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
-                res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus),reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
 
 
             # 开启自动情况，只进行式神点选
             else:
-                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos')
-                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos')
+                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                    pos='j_rgb_battle_during_ui_pos')
+                    pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 if focus:
                     action_delay()
                     focus_dict = {1: 'c_btn_shisheng_first_position_pos',
@@ -63,16 +63,16 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   4: 'c_btn_shisheng_fourth_position_pos',
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
-                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus),reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
 
         # 非队长情况,无需考虑组队界面
         else:
             # 非自动情况
             if not auto:
-                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos')
-                res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(pos='j_rgb_btn_battle_start_pos',click_pos='c_btn_battle_start_pos')
-                res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos')
+                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(pos='j_rgb_btn_battle_start_pos',click_pos='c_btn_battle_start_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 # 设定式神点选情况
                 if focus:
                     focus_dict = {1: 'c_btn_shisheng_first_position_pos',
@@ -82,16 +82,16 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
                     action_delay()
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
-                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
-                res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos')
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus),reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_click_area_battle_ending = game_func.click_area_battle_ending(pos='j_rgb_background_ui_pos',click_pos='c_btn_battle_ending_area_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
 
             # 自动情况
             else:
-                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos')
-                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos')
+                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(pos='j_rgb_team_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(pos='j_rgb_battle_pre_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                    pos='j_rgb_battle_during_ui_pos')
+                    pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 if focus:
                     action_delay()
                     focus_dict = {1: 'c_btn_shisheng_first_position_pos',
@@ -100,8 +100,8 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                                   4: 'c_btn_shisheng_fourth_position_pos',
                                   5: 'c_btn_shisheng_fifth_position_pos',
                                   }
-                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus))
-                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos')
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(click_pos=focus_dict.get(focus),reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
+                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
 
         if dry_run:
             if team_leader:
@@ -181,7 +181,9 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
 
             # [(0, '配置正确'), (0, '配置正确'), (0, '配置正确'), (1, '点_战斗中界面_式神第一_位置 缺失该坐标配置'), (0, '配置正确')]
 
-            res_list = list(filter(lambda i: i[0] == 1, res_list))
+            # 悬赏封印坐标丢失情况下去重set()
+            res_list = set(list(filter(lambda i: i[0] == 1, res_list)))
+
             if res_list:
                 error = '以下坐标存在缺失：\n'
                 error_info = '{}\n'
