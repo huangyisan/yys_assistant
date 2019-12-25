@@ -115,7 +115,7 @@ class YYSWindow(QMainWindow):
     def release_items_soul(self):
         self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
-        self.__ui.groupbox_other.setEnabled(True)
+        # self.__ui.groupbox_other.setEnabled(True)
         self.__ui.groupbox_execcout.setEnabled(True)
 
 
@@ -123,7 +123,7 @@ class YYSWindow(QMainWindow):
     def release_items_soul_stop(self):
         self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
-        self.__ui.groupbox_other.setEnabled(True)
+        # self.__ui.groupbox_other.setEnabled(True)
         self.__ui.groupbox_execcout.setEnabled(True)
         self.__ui.btn_soul_start.setEnabled(True)
 
@@ -294,6 +294,11 @@ class YYSWindow(QMainWindow):
             try:
                 if self.p.isFinished():
                     self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
+                    self.__ui.btn_soul_start.setText('配置检测')
+                    cfg.set('dry_run', 'flag', '1')
+                    with open(config_file, 'w', encoding='utf-8') as configfile:
+                        cfg.write(configfile)
+                    self.release_items_soul_stop()
                 else:
                     self.p.terminate()
                     self.p.wait()

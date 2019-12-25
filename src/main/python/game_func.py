@@ -48,7 +48,6 @@ def judge_rgb_reward_ui(reward_pos,click_reward_pos)->bool:
     :param click_pos:
     :return:
     '''
-    print('检测是否有悬赏')
     if compare_rgb(reward_pos):
         click_mouse(click_reward_pos)
         return True
@@ -106,13 +105,13 @@ def judge_rgb_btn_battle_start(pos,click_pos,reward_pos,click_reward_pos)->bool:
     :param pos:
     :return:
     '''
-    while True:
-        time.sleep(sleep_time)
-        judge_rgb_reward_ui(reward_pos,click_reward_pos)
-        if compare_rgb(pos):
-            click_mouse(click_pos)
-            print('当前开始按钮可以点击')
-            return True
+
+    time.sleep(0.5)
+    judge_rgb_reward_ui(reward_pos,click_reward_pos)
+    if compare_rgb(pos):
+        click_mouse(click_pos)
+        print('当前开始按钮可以点击')
+        return True
 
 @dry_run(flag=dry_run_flag)
 def judge_rgb_battle_during_ui(pos,reward_pos,click_reward_pos)->bool:
@@ -136,7 +135,8 @@ def click_btn_ShiSheng(click_pos,reward_pos,click_reward_pos)->bool:
     :return:
     '''
     judge_rgb_reward_ui(reward_pos,click_reward_pos)
-    time.sleep(sleep_time)
+    time.sleep(0.5)
+    print('式神点击')
     click_mouse(click_pos)
     return True
 

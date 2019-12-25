@@ -36,6 +36,7 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                 res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(pos='j_rgb_battle_during_ui_pos',reward_pos='j_rgb_reward_ui_pos',click_reward_pos='c_btn_reward_pos')
                 # 设定式神点选情况
                 if focus:
+                    print(focus)
                     focus_dict = {1: 'c_btn_shisheng_first_position_pos',
                                   2: 'c_btn_shisheng_second_position_pos',
                                   3: 'c_btn_shisheng_third_position_pos',
