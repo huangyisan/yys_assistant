@@ -59,8 +59,7 @@ def judge_rgb_team_ui(pos)->bool:
     '''
 
     while True:
-        # cfg.read(config_file, encoding='utf-8')
-        # if cfg.get('execute', 'exec_flag') == '1':
+        time.sleep(0.3)
         print('testttt')
         if compare_rgb(pos):
             print('当前为组队界面')
