@@ -1,2 +1,2 @@
 #!/bin/bash
-fbs clean && fbs freeze && cp ./config.ini  target/yys_assistant/
+fbs clean && fbs freeze && cp ./src/main/python/config.ini target/yys_assistant/
