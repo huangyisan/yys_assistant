@@ -3,10 +3,6 @@ import pyautogui as pag
 from configparser import ConfigParser
 import random
 import pyautogui
-import keyboard
-import os
-import signal
-import time
 from project_settings import yys_config_path
 
 

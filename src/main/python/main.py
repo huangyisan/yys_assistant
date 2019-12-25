@@ -1,17 +1,22 @@
+from fbs_runtime.application_context.PyQt5 import ApplicationContext
+from PyQt5.QtCore import QThread
 import sys
-from PyQt5.QtWidgets import  QWidget, QApplication, QMainWindow, QMessageBox, QDialog, QStyleFactory
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
 from ui_yyswindow import Ui_MainWindow
-from yys_functions import win32_func,game_func
+import win32_func,game_func
 from ui_pos_config import Ui_pos_config
 from project_settings import yys_config_path
-from yys_functions.game import soul
+from game import soul
 
 from configparser import ConfigParser
 import importlib
-import multiprocessing
-import os
-import signal
-import psutil
+
+class AppContext(ApplicationContext):
+
+    def run(self):
+        window = YYSWindow()
+        window.show()
+        return self.app.exec_()
 
 class YYSWindow(QMainWindow):
 
@@ -55,6 +60,9 @@ class YYSWindow(QMainWindow):
 
         # 初始化开始脚本按钮
         self.__ui.btn_soul_start.setText('配置检测')
+
+        # initial thread pool
+        # self.threadpool = QThreadPool()
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
@@ -269,33 +277,32 @@ class YYSWindow(QMainWindow):
             importlib.reload(game_func)
 
             # 防止卡死，将soul进程单独fork出子进程
-            # p = multiprocessing.Process(target=soul)
-            p = multiprocessing.Process(target=soul,kwargs={'focus':focus, 'exec_count':exec_count, 'team_leader':team_leader, 'auto':auto, 'reward':reward, 'dry_run':False})
-            p.start()
+            self.p = MyThread(fn=soul, focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
+            self.p.start()
 
-            # 将子进程赋予self.child_pid变量
-            self.child_pid = p.pid
             self.__ui.btn_soul_start.setText('挂机中...')
             self.lock_items_soul()
             self.__ui.btn_soul_start.setEnabled(False)
             self.__ui.btn_soul_stop.setText('停止挂机')
 
     def stop_soul(self):
+
         if self.__ui.btn_soul_stop.text() == '停止挂机':
-            if self.child_pid is None:
+            try:
+                if self.p.isFinished():
+                    self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
+                else:
+                    self.p.terminate()
+                    self.p.wait()
+                    cfg.set('dry_run', 'flag', '1')
+                    with open(config_file, 'w', encoding='utf-8') as configfile:
+                        cfg.write(configfile)
+                    self.__ui.btn_soul_start.setText('配置检测')
+                    self.release_items_soul_stop()
+                    self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
+            except AttributeError:
                 self.showMessageBox(title='提示', message='当前没有执行挂机任务', icon=QMessageBox.Information)
-            else:
-                try:
-                    os.kill(self.child_pid,signal.SIGTERM)
-                except OSError:
-                    pass
-                self.child_pid = None
-                cfg.set('dry_run','flag','1')
-                with open(config_file, 'w', encoding='utf-8') as configfile:
-                    cfg.write(configfile)
-                self.showMessageBox(title='提示', message='已停止挂机', icon=QMessageBox.Information)
-                self.__ui.btn_soul_start.setText('配置检测')
-                self.release_items_soul_stop()
+
         elif self.__ui.btn_soul_stop.text() == '解除配置锁定':
             self.release_items_soul()
             self.__ui.btn_soul_start.setText('配置检测')
@@ -327,15 +334,36 @@ class YYS_pos_config(QDialog):
         # 关闭自身window
         self.__ui.btn_ok.clicked.connect(self.close)
 
+class MyThread(QThread):
+    '''
+    通用型Thread入口
+    '''
+    def __init__(self,fn, *args, **kwargs):
+        QThread.__init__(self)
+        self.fn = fn
+        self.args = args
+        self.kwargs = kwargs
+
+    def run(self):
+
+        self.fn(*self.args, **self.kwargs)
+
+
+
+    pass
 
 if  __name__ == "__main__":
+    appctxt = AppContext()
 
     # 载入 config.ini 配置文件
     cfg = ConfigParser()
     config_file = yys_config_path
     cfg.read(config_file, encoding='utf-8')
 
-    app = QApplication(sys.argv)     #创建app，用QApplication类
-    myWidget=YYSWindow()
-    myWidget.show()
-    sys.exit(app.exec_())
+    exit_code = appctxt.run()
+    sys.exit(exit_code)
+
+    # app = QApplication(sys.argv)     #创建app，用QApplication类
+    # myWidget=YYSWindow()
+    # myWidget.show()
+    # sys.exit(app.exec_())
