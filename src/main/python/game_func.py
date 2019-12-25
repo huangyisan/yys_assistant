@@ -12,6 +12,7 @@ cfg = ConfigParser()
 config_file = yys_config_path
 cfg.read(config_file, encoding='utf-8')
 dry_run_flag = int(cfg.get('dry_run', 'flag'))
+sleep_time = int(cfg.get('time','sleep_time'))
 
 def dry_run(flag=dry_run_flag):
     '''
@@ -45,6 +46,7 @@ def judge_rgb_reward_ui(reward_pos,click_reward_pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if compare_rgb(reward_pos):
             click_mouse(click_reward_pos)
             return True
@@ -59,7 +61,7 @@ def judge_rgb_team_ui(pos)->bool:
     '''
 
     while True:
-        time.sleep(0.3)
+        time.sleep(sleep_time)
         print('testttt')
         if compare_rgb(pos):
             print('当前为组队界面')
@@ -77,6 +79,7 @@ def click_btn_team_start(pos,click_pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if compare_rgb(pos):
             click_mouse(click_pos)
             print('当前挑战按钮可用')
@@ -90,6 +93,7 @@ def judge_rgb_battle_pre_ui(pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if compare_rgb(pos):
             print('当前为战斗准备状态')
             return True
@@ -102,6 +106,7 @@ def judge_rgb_btn_battle_start(pos,click_pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if compare_rgb(pos):
             click_mouse(click_pos)
             print('当前开始按钮可以点击')
@@ -115,6 +120,7 @@ def judge_rgb_battle_during_ui(pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if compare_rgb(pos):
             print('当前为战斗中。。。。')
             return True
@@ -126,6 +132,7 @@ def click_btn_ShiSheng(click_pos)->bool:
     :param click_pos:
     :return:
     '''
+    time.sleep(sleep_time)
     click_mouse(click_pos)
     return True
 
@@ -138,6 +145,7 @@ def judge_rgb_battle_ending_ui(pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if not compare_rgb(pos):
             print('当前为战斗结束状态')
             return True
@@ -151,9 +159,9 @@ def click_area_battle_ending(pos,click_pos)->bool:
     :return:
     '''
     while True:
+        time.sleep(sleep_time)
         if not compare_rgb(pos):
             click_mouse(click_pos)
-            time.sleep(0.3)
             print('当前进行战斗后开箱')
         else:
             return True
