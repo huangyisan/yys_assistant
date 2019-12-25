@@ -36,6 +36,9 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_reward_yes.setChecked(True)
         self.__ui.checkbox_none_pos.setChecked(True)
 
+        # 悬赏封印group disable
+        self.__ui.groupbox_other.setEnabled(False)
+
         # 程序启动后加载执行的一些任务
         # 获取当前屏幕分辨率
         self.get_screen_resolution()

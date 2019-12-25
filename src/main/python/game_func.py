@@ -45,7 +45,6 @@ def judge_rgb_reward_ui(reward_pos,click_reward_pos)->bool:
     :param click_pos:
     :return:
     '''
-    print('this is reward')
     if compare_rgb(reward_pos):
         click_mouse(click_reward_pos)
         return True
