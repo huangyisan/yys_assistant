@@ -14,6 +14,7 @@ cfg.read(config_file, encoding='utf-8')
 dry_run_flag = int(cfg.get('dry_run', 'flag'))
 sleep_time = int(cfg.get('time','sleep_time'))
 
+
 def dry_run(flag=dry_run_flag):
     '''
     dry run decorator，用来检测所用到的pos是否采集
