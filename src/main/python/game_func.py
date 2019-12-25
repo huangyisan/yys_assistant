@@ -14,6 +14,9 @@ cfg.read(config_file, encoding='utf-8')
 dry_run_flag = int(cfg.get('dry_run', 'flag'))
 sleep_time = float(cfg.get('time','sleep_time'))
 
+for i in cfg.items('pixel_info'):
+    pixel_info[i[0]] = i[1]
+
 
 def dry_run(flag=dry_run_flag):
     '''
@@ -45,6 +48,7 @@ def judge_rgb_reward_ui(reward_pos,click_reward_pos)->bool:
     :param click_pos:
     :return:
     '''
+    print('检测是否有悬赏')
     if compare_rgb(reward_pos):
         click_mouse(click_reward_pos)
         return True
