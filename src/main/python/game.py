@@ -193,4 +193,9 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
                 return 1, error
             else:
                 return 0, '配置正常'
-        t_exec_count -= 1
+
+        if isinstance(t_exec_count,bool):
+            pass
+        else:
+            t_exec_count -= 1
+
