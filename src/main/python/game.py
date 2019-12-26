@@ -198,4 +198,3 @@ def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bo
             pass
         else:
             t_exec_count -= 1
-

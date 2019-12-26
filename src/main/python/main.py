@@ -353,12 +353,7 @@ class MyThread(QThread):
         self.kwargs = kwargs
 
     def run(self):
-
         self.fn(*self.args, **self.kwargs)
-
-
-
-    pass
 
 if  __name__ == "__main__":
     appctxt = AppContext()
