@@ -4,7 +4,7 @@ from configparser import ConfigParser
 import random
 import pyautogui
 from project_settings import yys_config_path
-
+import time
 
 def get_screen_resolution()->tuple:
     '''
@@ -158,7 +158,8 @@ def click_mouse(pos_name:str,random_num:int=4):
     random_y = pos[1] + random.randint(0, random_num)
 
     # 鼠标进行移动, 并且左单击
-    pyautogui.moveTo(random_x, random_y, duration=0.2)
+    pyautogui.moveTo(random_x, random_y)
+    time.sleep(0.2)
     pyautogui.click(button='left')
 
 

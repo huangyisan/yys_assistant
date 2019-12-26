@@ -135,7 +135,7 @@ def click_btn_ShiSheng(click_pos,reward_pos,click_reward_pos)->bool:
     :return:
     '''
     judge_rgb_reward_ui(reward_pos,click_reward_pos)
-    time.sleep(0.5)
+    time.sleep(0.2)
     print('式神点击')
     click_mouse(click_pos,random_num=0)
     return True

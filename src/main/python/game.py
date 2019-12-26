@@ -1,7 +1,7 @@
 import game_func
 import time
 
-def action_delay(sleep=1):
+def action_delay(sleep=0.2):
     time.sleep(sleep)
 
 def soul(focus: int = 1, exec_count: int = 1, team_leader: bool = True, auto: bool = True, reward: bool = True, dry_run=True):
