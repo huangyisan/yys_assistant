@@ -158,7 +158,7 @@ def click_mouse(pos_name:str,random_num:int=4):
     random_y = pos[1] + random.randint(0, random_num)
 
     # 鼠标进行移动, 并且左单击
-    pyautogui.moveTo(random_x, random_y, duration=0.1)
+    pyautogui.moveTo(random_x, random_y, duration=0.2)
     pyautogui.click(button='left')
 
 
