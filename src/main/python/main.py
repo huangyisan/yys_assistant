@@ -1,10 +1,12 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5.QtCore import QThread
 import sys
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog,QLabel
+from PyQt5.QtGui import QPixmap
 from ui_yyswindow import Ui_MainWindow
 import win32_func,game_func
 from ui_pos_config import Ui_pos_config
+from ui_yysdonate import Ui_dialog_donate
 from project_settings import yys_config_path
 from game import soul
 
@@ -79,8 +81,7 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
         # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
         self.__ui.btn_soul_stop.clicked.connect(self.stop_soul)
-
-        # self.__ui.btn_soul_start.clicked.connect(self.check_simhun_running_config)
+        self.__ui.btn_donate.clicked.connect(self.get_donate_page)
 
     def reload_config(self):
         '''
@@ -207,6 +208,12 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='保存成功\n执行{}次'.format(count), icon=QMessageBox.Information)
         else:
             self.showMessageBox(title='提示', message='保存成功\n循环执行'.format(count), icon=QMessageBox.Information)
+
+    def get_donate_page(self):
+        donate_page = YYS_donate(self)
+        donate_page.show()
+
+
 
     def check_soul_config_pos(self,func):
         '''
@@ -348,6 +355,19 @@ class YYS_pos_config(QDialog):
 
         # 关闭自身window
         self.__ui.btn_ok.clicked.connect(self.close)
+
+
+class YYS_donate(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.__ui=Ui_dialog_donate()
+        self.__ui.setupUi(self)
+        pic = QLabel(self)
+        pic.setPixmap(QPixmap("alipay_qrcode.png"))
+        pic.show()
+
+        # 关闭自身window
+        self.__ui.btn_thanks.clicked.connect(self.close)
 
 class MyThread(QThread):
     '''
