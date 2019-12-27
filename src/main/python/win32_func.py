@@ -37,21 +37,37 @@ def get_window_size(hwnd)->tuple or 0:
     left, top, right, bottom = pos
 
     # 判断窗体左上角是否为(0,0),如果是(0,0)，则返回0
-    if left == top == 0:
-        return 0
-    else:
+    if top:
         w = right - left
         h = bottom - top
-        return w,h
+        return w, h
+    else:
+        return 0
+
+
+def get_window_handler(file_name):
+    '''
+    回调函数，将符合file_name的句柄作为list传出来
+    :param file_name:
+    :return:
+    '''
+    handler_list = []
+    def enumHandler(hwnd, lParam):
+        if win32gui.IsWindowVisible(hwnd):
+            if file_name in win32gui.GetWindowText(hwnd):
+                handler_list.append(hwnd)
+    win32gui.EnumWindows(enumHandler, None)
+    return handler_list
 
 def window_move_left(file_name)->tuple:
-    hwnd = win32gui.FindWindow(None, file_name)
     '''
     将窗体等比例缩放后移动至左上角,且宽度不超过屏幕分辨率的1/2
     :return:
     '''
+    hwnd = get_window_handler(file_name)[0]
     resolution = get_screen_resolution()
     size = get_window_size(hwnd)
+
 
     # size为0，则不进行任何处理
     if size:
@@ -70,11 +86,11 @@ def window_move_left(file_name)->tuple:
         pass
 
 def window_move_right(file_name)->tuple:
-    hwnd = win32gui.FindWindow(None,file_name)
     '''
     将窗体等比例缩放后移动至右上角,且宽度不超过屏幕分辨率的1/2
     :return:
     '''
+    hwnd = get_window_handler(file_name)[0]
     resolution = get_screen_resolution()
     size = get_window_size(hwnd)
 

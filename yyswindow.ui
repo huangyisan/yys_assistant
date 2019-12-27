@@ -138,7 +138,7 @@
         <string/>
        </property>
        <property name="maxLength">
-        <number>30</number>
+        <number>64</number>
        </property>
        <property name="echoMode">
         <enum>QLineEdit::Normal</enum>
@@ -689,7 +689,7 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="buttonGroup"/>
   <buttongroup name="buttonGroup_2"/>
+  <buttongroup name="buttonGroup"/>
  </buttongroups>
 </ui>

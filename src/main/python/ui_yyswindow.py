@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.2
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -51,7 +49,7 @@ class Ui_MainWindow(object):
         self.line_handle.setInputMethodHints(QtCore.Qt.ImhNone)
         self.line_handle.setInputMask("")
         self.line_handle.setText("")
-        self.line_handle.setMaxLength(30)
+        self.line_handle.setMaxLength(64)
         self.line_handle.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.line_handle.setReadOnly(False)
         self.line_handle.setCursorMoveStyle(QtCore.Qt.LogicalMoveStyle)
@@ -260,3 +258,4 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.second_page), _translate("MainWindow", "御魂"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.fourth_page), _translate("MainWindow", "突破"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "帮助"))
+
