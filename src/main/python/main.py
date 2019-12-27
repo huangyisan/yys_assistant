@@ -36,6 +36,9 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_radio_reward_yes.setChecked(True)
         self.__ui.checkbox_none_pos.setChecked(True)
 
+        # game mode single default
+        self.__ui.checkbox_singleplay.setChecked(True)
+
         # 悬赏封印group disable
         self.__ui.groupbox_other.setEnabled(False)
 

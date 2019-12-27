@@ -64,25 +64,25 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
+        <y>80</y>
         <width>221</width>
-        <height>41</height>
+        <height>51</height>
        </rect>
       </property>
       <property name="title">
-       <string/>
+       <string>屏幕分辨率</string>
       </property>
       <widget class="QLabel" name="resolution_label">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>10</y>
+         <y>20</y>
          <width>201</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
-        <string>当前屏幕分辨率未知</string>
+        <string>未知</string>
        </property>
       </widget>
      </widget>
@@ -90,7 +90,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
+        <y>140</y>
         <width>221</width>
         <height>91</height>
        </rect>
@@ -200,7 +200,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>160</y>
+        <y>240</y>
         <width>221</width>
         <height>151</height>
        </rect>
@@ -301,6 +301,51 @@
        <property name="text">
         <string>采点保存</string>
        </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>221</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string> 运行模式</string>
+      </property>
+      <widget class="QCheckBox" name="checkbox_singleplay">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>单人模式</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup_3</string>
+       </attribute>
+      </widget>
+      <widget class="QCheckBox" name="checkbox_dualplay">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>20</y>
+         <width>71</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>双人模式</string>
+       </property>
+       <attribute name="buttonGroup">
+        <string notr="true">buttonGroup_3</string>
+       </attribute>
       </widget>
      </widget>
     </widget>
@@ -691,5 +736,6 @@
  <buttongroups>
   <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup"/>
+  <buttongroup name="buttonGroup_3"/>
  </buttongroups>
 </ui>
