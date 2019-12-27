@@ -110,12 +110,14 @@ class YYSWindow(QMainWindow):
         return int(exec_count)
 
     def lock_items_soul(self):
+        self.__ui.groupbox_running_mode.setEnabled(False)
         self.__ui.groupbox_beforebattle.setEnabled(False)
         self.__ui.groupbox_duringbattle.setEnabled(False)
         self.__ui.groupbox_other.setEnabled(False)
         self.__ui.groupbox_execcout.setEnabled(False)
 
     def release_items_soul(self):
+        self.__ui.groupbox_running_mode.setEnabled(True)
         self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
         # self.__ui.groupbox_other.setEnabled(True)

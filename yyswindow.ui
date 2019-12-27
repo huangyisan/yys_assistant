@@ -303,7 +303,7 @@
        </property>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_4">
+     <widget class="QGroupBox" name="groupbox_running_mode">
       <property name="geometry">
        <rect>
         <x>10</x>

@@ -47,7 +47,7 @@ def get_window_size(hwnd)->tuple or 0:
 
 def get_window_handler(file_name):
     '''
-    回调函数，将符合file_name的句柄作为list传出来
+    回调函数，将符合file_name的句柄作为list传出来,调用EnumWindows枚举方法
     :param file_name:
     :return:
     '''
@@ -177,7 +177,3 @@ def click_mouse(pos_name:str,random_num:int=4):
     pyautogui.moveTo(random_x, random_y)
     time.sleep(0.2)
     pyautogui.click(button='left')
-
-
-
-
