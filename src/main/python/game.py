@@ -383,17 +383,19 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
-
-                    res_click_area_battle_ending = game_func.click_area_battle_ending(
-                        pos='j_rgb_background_ui_pos',
-                        click_pos='c_btn_battle_ending_area_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_click_2p_area_battle_ending = game_func.click_2p_area_battle_ending(
-                        pos='j_rgb_background_ui_2p_pos',
-                        click_pos='c_btn_battle_ending_area_2p_pos',
+                    #
+                    # res_click_area_battle_ending = game_func.click_area_battle_ending(
+                    #     pos='j_rgb_background_ui_pos',
+                    #     click_pos='c_btn_battle_ending_area_pos',
+                    #     reward_pos='j_rgb_reward_ui_pos',
+                    #     click_reward_pos='c_btn_reward_pos'
+                    # )
+                    print('thisss!')
+                    click_dual_area_battle_ending = game_func.click_dual_area_battle_ending(
+                        pos_1p='j_rgb_background_ui_pos',
+                        click_pos_1p='c_btn_battle_ending_area_pos',
+                        pos_2p='j_rgb_background_ui_2p_pos',
+                        click_pos_2p='c_btn_battle_ending_area_2p_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -492,7 +494,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         click_reward_pos='c_btn_reward_pos'
                     )
 
-                    res_click_2p_area_battle_ending = game_func.click_2p_area_battle_ending(
+                    click_dual_area_battle_ending = game_func.click_2p_area_battle_ending(
                         pos='j_rgb_background_ui_2p_pos',
                         click_pos='c_btn_battle_ending_area_2p_pos',
                         reward_pos='j_rgb_reward_ui_pos',
@@ -551,8 +553,8 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                                 res_judge_rgb_battle_during_ui,
                                 res_click_btn_ShiSheng,
                                 res_judge_rgb_battle_ending_ui,
-                                res_click_area_battle_ending,
-                                res_click_2p_area_battle_ending,
+                                # res_click_area_battle_ending,
+                                click_dual_area_battle_ending,
                             ]
                         else:
                             res_list = [
@@ -563,7 +565,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                                 res_judge_rgb_battle_during_ui,
                                 res_judge_rgb_battle_ending_ui,
                                 res_click_area_battle_ending,
-                                res_click_2p_area_battle_ending,
+                                click_dual_area_battle_ending,
                             ]
                     else:
                         if focus:
@@ -591,7 +593,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                                 res_click_btn_ShiSheng,
                                 res_judge_rgb_battle_ending_ui,
                                 res_click_area_battle_ending,
-                                res_click_2p_area_battle_ending
+                                click_dual_area_battle_ending
                             ]
                         else:
                             res_list = [
@@ -600,7 +602,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                                 res_judge_rgb_battle_during_ui,
                                 res_judge_rgb_battle_ending_ui,
                                 res_click_area_battle_ending,
-                                res_click_2p_area_battle_ending
+                                click_dual_area_battle_ending
                             ]
                     else:
                         if focus:

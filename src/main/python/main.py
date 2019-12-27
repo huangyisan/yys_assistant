@@ -127,6 +127,7 @@ class YYSWindow(QMainWindow):
 
 
     def release_items_soul_stop(self):
+        self.__ui.groupbox_running_mode.setEnabled(True)
         self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
         # self.__ui.groupbox_other.setEnabled(True)
@@ -294,7 +295,7 @@ class YYSWindow(QMainWindow):
             importlib.reload(game_func)
 
             # 防止卡死，将soul进程单独fork出子进程
-            self.p = MyThread(fn=soul, focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
+            self.p = MyThread(fn=soul, focus=focus, play_mode=play_mode,exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
             self.p.start()
 
             self.__ui.btn_soul_start.setText('挂机中...')
