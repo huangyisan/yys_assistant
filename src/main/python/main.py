@@ -260,6 +260,8 @@ class YYSWindow(QMainWindow):
         team_leader = self.__ui.btn_radio_leader_yes.isChecked()
         auto = self.__ui.btn_radio_auto_yes.isChecked()
         reward = self.__ui.btn_radio_reward_yes.isChecked()
+        # 默认为single mode
+        play_mode = self.__ui.checkbox_singleplay.isChecked()
 
         if self.__ui.btn_soul_start.text() == '配置检测':
             # 让game_func重新读取config.ini中dry_run
@@ -267,7 +269,7 @@ class YYSWindow(QMainWindow):
             # 重新引入当前内存中pos配置信息
             self.reload_config()
 
-            code, info = soul(focus=focus, exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=True)
+            code, info = soul(focus=focus, play_mode=play_mode,exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=True)
             # code, info = soul(focus=focus,  dry_run=True)
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
@@ -370,8 +372,3 @@ if  __name__ == "__main__":
 
     exit_code = appctxt.run()
     sys.exit(exit_code)
-
-    # app = QApplication(sys.argv)     #创建app，用QApplication类
-    # myWidget=YYSWindow()
-    # myWidget.show()
-    # sys.exit(app.exec_())

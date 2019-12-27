@@ -171,3 +171,21 @@ def click_area_battle_ending(pos,click_pos,reward_pos,click_reward_pos)->bool:
             print('当前进行战斗后开箱')
         else:
             return True
+
+@dry_run(flag=dry_run_flag)
+def click_2p_area_battle_ending(pos,click_pos,reward_pos,click_reward_pos)->bool:
+    '''
+    stop click if detect any rgb in background picture or invite ui
+    :param pos:
+    :param click_pos:
+    :return:
+    '''
+    while True:
+        time.sleep(sleep_time)
+        judge_rgb_reward_ui(reward_pos,click_reward_pos)
+        if not compare_rgb(pos):
+            click_mouse(click_pos)
+            print('2p当前进行战斗后开箱')
+        else:
+            return True
+
