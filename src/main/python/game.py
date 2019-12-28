@@ -28,182 +28,87 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
         res_judge_rgb_team_ui = res_click_btn_team_start = res_judge_rgb_battle_pre_ui = res_judge_rgb_btn_battle_start = res_judge_rgb_battle_during_ui = res_judge_rgb_battle_ending_ui = res_click_area_battle_ending = (
             None, None)
     if play_mode:
-        # 单人模式
+        # 单人模式 无关是否队长
         while t_exec_count:
-
-            # 如果是队长情况下
-            if team_leader:
                 # 未开启自动情况
-                if not auto:
-                    res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(
-                        pos='j_rgb_team_ui_pos',
+            if not auto:
+                res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(
+                    pos='j_rgb_single_soul_ui_pos',
+                    reward_pos='j_rgb_reward_ui_pos',
+                    click_reward_pos='c_btn_reward_pos'
+                )
+
+                res_click_btn_team_start = game_func.click_btn_team_start(
+                    pos='j_btn_single_start_pos',
+                    click_pos='c_btn_single_start_pos',
+                    reward_pos='j_rgb_reward_ui_pos',
+                    click_reward_pos='c_btn_reward_pos'
+                )
+
+                # res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
+                #     pos='j_rgb_battle_pre_ui_pos',
+                #     reward_pos='j_rgb_reward_ui_pos',
+                #     click_reward_pos='c_btn_reward_pos'
+                # )
+                #
+                # res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(
+                #     pos='j_rgb_btn_battle_start_pos',
+                #     click_pos='c_btn_battle_start_pos',
+                #     reward_pos='j_rgb_reward_ui_pos',
+                #     click_reward_pos='c_btn_reward_pos'
+                # )
+
+                res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
+                    pos='j_rgb_single_battle_during_ui_pos',
+                    reward_pos='j_rgb_reward_ui_pos',
+                    click_reward_pos='c_btn_reward_pos'
+                )
+
+                # 设定式神点选情况
+                if focus:
+                    focus_dict = {1: 'c_btn_shisheng_first_position_pos',
+                                  2: 'c_btn_shisheng_second_position_pos',
+                                  3: 'c_btn_shisheng_third_position_pos',
+                                  4: 'c_btn_shisheng_fourth_position_pos',
+                                  5: 'c_btn_shisheng_fifth_position_pos',
+                                  }
+                    action_delay()
+
+                    res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(
+                        click_pos=focus_dict.get(focus),
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
 
-                    res_click_btn_team_start = game_func.click_btn_team_start(
-                        pos='j_btn_team_start_pos',
-                        click_pos='c_btn_team_start_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
+                res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
+                    pos='j_rgb_single_battle_during_ui_pos',
+                    reward_pos='j_rgb_reward_ui_pos',
+                    click_reward_pos='c_btn_reward_pos'
+                )
 
-                    res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
-                        pos='j_rgb_battle_pre_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(
-                        pos='j_rgb_btn_battle_start_pos',
-                        click_pos='c_btn_battle_start_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    # 设定式神点选情况
-                    if focus:
-                        focus_dict = {1: 'c_btn_shisheng_first_position_pos',
-                                      2: 'c_btn_shisheng_second_position_pos',
-                                      3: 'c_btn_shisheng_third_position_pos',
-                                      4: 'c_btn_shisheng_fourth_position_pos',
-                                      5: 'c_btn_shisheng_fifth_position_pos',
-                                      }
-                        action_delay()
-
-                        res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(
-                            click_pos=focus_dict.get(focus),
-                            reward_pos='j_rgb_reward_ui_pos',
-                            click_reward_pos='c_btn_reward_pos'
-                        )
-
-                    res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_click_area_battle_ending = game_func.click_area_battle_ending(
-                        pos='j_rgb_background_ui_pos',
-                        click_pos='c_btn_battle_ending_area_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
+                res_click_area_battle_ending = game_func.click_area_battle_ending(
+                    pos='j_rgb_background_ui_pos',
+                    click_pos='c_btn_battle_ending_area_pos',
+                    reward_pos='j_rgb_reward_ui_pos',
+                    click_reward_pos='c_btn_reward_pos'
+                )
 
                 # 开启自动情况，只进行式神点选
-                else:
-                    res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(
-                        pos='j_rgb_team_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
-                        pos='j_rgb_battle_pre_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    if focus:
-                        action_delay()
-                        focus_dict = {1: 'c_btn_shisheng_first_position_pos',
-                                      2: 'c_btn_shisheng_second_position_pos',
-                                      3: 'c_btn_shisheng_third_position_pos',
-                                      4: 'c_btn_shisheng_fourth_position_pos',
-                                      5: 'c_btn_shisheng_fifth_position_pos',
-                                      }
-
-                        res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(
-                            click_pos=focus_dict.get(focus),
-                            reward_pos='j_rgb_reward_ui_pos',
-                            click_reward_pos='c_btn_reward_pos'
-                        )
-
-                    res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-            # 非队长情况,无需考虑组队界面
             else:
-                # 非自动情况
-                if not auto:
-                    res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
-                        pos='j_rgb_battle_pre_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
+                # res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(
+                #     pos='j_rgb_team_ui_pos',
+                #     reward_pos='j_rgb_reward_ui_pos',
+                #     click_reward_pos='c_btn_reward_pos'
+                # )
 
-                    res_judge_rgb_btn_battle_start = game_func.judge_rgb_btn_battle_start(
-                        pos='j_rgb_btn_battle_start_pos',
-                        click_pos='c_btn_battle_start_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
+                # res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
+                #     pos='j_rgb_battle_pre_ui_pos',
+                #     reward_pos='j_rgb_reward_ui_pos',
+                #     click_reward_pos='c_btn_reward_pos'
+                # )
 
                     res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    # 设定式神点选情况
-                    if focus:
-                        focus_dict = {1: 'c_btn_shisheng_first_position_pos',
-                                      2: 'c_btn_shisheng_second_position_pos',
-                                      3: 'c_btn_shisheng_third_position_pos',
-                                      4: 'c_btn_shisheng_fourth_position_pos',
-                                      5: 'c_btn_shisheng_fifth_position_pos',
-                                      }
-                        action_delay()
-                        res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(
-                            click_pos=focus_dict.get(focus),
-                            reward_pos='j_rgb_reward_ui_pos',
-                            click_reward_pos='c_btn_reward_pos'
-                        )
-
-                    res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_click_area_battle_ending = game_func.click_area_battle_ending(
-                        pos='j_rgb_background_ui_pos',
-                        click_pos='c_btn_battle_ending_area_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                # 自动情况
-                else:
-                    res_judge_rgb_team_ui = game_func.judge_rgb_team_ui(
-                        pos='j_rgb_team_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_battle_pre_ui = game_func.judge_rgb_battle_pre_ui(
-                        pos='j_rgb_battle_pre_ui_pos',
-                        reward_pos='j_rgb_reward_ui_pos',
-                        click_reward_pos='c_btn_reward_pos'
-                    )
-
-                    res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_single_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -216,6 +121,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                                       4: 'c_btn_shisheng_fourth_position_pos',
                                       5: 'c_btn_shisheng_fifth_position_pos',
                                       }
+
                         res_click_btn_ShiSheng = game_func.click_btn_ShiSheng(
                             click_pos=focus_dict.get(focus),
                             reward_pos='j_rgb_reward_ui_pos',
@@ -223,86 +129,85 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         )
 
                     res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
 
             if dry_run:
-                if team_leader:
-                    if not auto:
-                        if focus:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_click_btn_team_start,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_btn_battle_start,
-                                res_judge_rgb_battle_during_ui,
-                                res_click_btn_ShiSheng,
-                                res_judge_rgb_battle_ending_ui,
-                                res_click_area_battle_ending,
-                            ]
-                        else:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_click_btn_team_start,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_btn_battle_start,
-                                res_judge_rgb_battle_during_ui,
-                                res_judge_rgb_battle_ending_ui,
-                                res_click_area_battle_ending,
-                            ]
+                if not auto:
+                    if focus:
+                        res_list = [
+                            res_judge_rgb_team_ui,
+                            res_click_btn_team_start,
+                            # res_judge_rgb_battle_pre_ui,
+                            # res_judge_rgb_btn_battle_start,
+                            res_judge_rgb_battle_during_ui,
+                            res_click_btn_ShiSheng,
+                            res_judge_rgb_battle_ending_ui,
+                            res_click_area_battle_ending,
+                        ]
                     else:
-                        if focus:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_battle_during_ui,
-                                res_click_btn_ShiSheng,
-                                res_judge_rgb_battle_ending_ui,
-                            ]
-                        else:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_battle_during_ui,
-                                res_judge_rgb_battle_ending_ui,
-                            ]
+                        res_list = [
+                            res_judge_rgb_team_ui,
+                            res_click_btn_team_start,
+                            # res_judge_rgb_battle_pre_ui,
+                            # res_judge_rgb_btn_battle_start,
+                            res_judge_rgb_battle_during_ui,
+                            res_judge_rgb_battle_ending_ui,
+                            res_click_area_battle_ending,
+                        ]
                 else:
-                    if not auto:
-                        if focus:
-                            res_list = [
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_btn_battle_start,
-                                res_judge_rgb_battle_during_ui,
-                                res_click_btn_ShiSheng,
-                                res_judge_rgb_battle_ending_ui,
-                                res_click_area_battle_ending,
-                            ]
-                        else:
-                            res_list = [
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_btn_battle_start,
-                                res_judge_rgb_battle_during_ui,
-                                res_judge_rgb_battle_ending_ui,
-                                res_click_area_battle_ending,
-                            ]
+                    if focus:
+                        res_list = [
+                            res_judge_rgb_team_ui,
+                            res_judge_rgb_battle_pre_ui,
+                            res_judge_rgb_battle_during_ui,
+                            res_click_btn_ShiSheng,
+                            res_judge_rgb_battle_ending_ui,
+                        ]
                     else:
-                        if focus:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_battle_during_ui,
-                                res_click_btn_ShiSheng,
-                                res_judge_rgb_battle_ending_ui,
-                            ]
-                        else:
-                            res_list = [
-                                res_judge_rgb_team_ui,
-                                res_judge_rgb_battle_pre_ui,
-                                res_judge_rgb_battle_during_ui,
-                                res_judge_rgb_battle_ending_ui,
-                            ]
+                        res_list = [
+                            res_judge_rgb_team_ui,
+                            res_judge_rgb_battle_pre_ui,
+                            res_judge_rgb_battle_during_ui,
+                            res_judge_rgb_battle_ending_ui,
+                        ]
+                # else:
+                #     if not auto:
+                #         if focus:
+                #             res_list = [
+                #                 res_judge_rgb_battle_pre_ui,
+                #                 res_judge_rgb_btn_battle_start,
+                #                 res_judge_rgb_battle_during_ui,
+                #                 res_click_btn_ShiSheng,
+                #                 res_judge_rgb_battle_ending_ui,
+                #                 res_click_area_battle_ending,
+                #             ]
+                #         else:
+                #             res_list = [
+                #                 res_judge_rgb_battle_pre_ui,
+                #                 res_judge_rgb_btn_battle_start,
+                #                 res_judge_rgb_battle_during_ui,
+                #                 res_judge_rgb_battle_ending_ui,
+                #                 res_click_area_battle_ending,
+                #             ]
+                #     else:
+                #         if focus:
+                #             res_list = [
+                #                 res_judge_rgb_team_ui,
+                #                 res_judge_rgb_battle_pre_ui,
+                #                 res_judge_rgb_battle_during_ui,
+                #                 res_click_btn_ShiSheng,
+                #                 res_judge_rgb_battle_ending_ui,
+                #             ]
+                #         else:
+                #             res_list = [
+                #                 res_judge_rgb_team_ui,
+                #                 res_judge_rgb_battle_pre_ui,
+                #                 res_judge_rgb_battle_during_ui,
+                #                 res_judge_rgb_battle_ending_ui,
+                #             ]
 
                 # [(0, '配置正确'), (0, '配置正确'), (0, '配置正确'), (1, '点_战斗中界面_式神第一_位置 缺失该坐标配置'), (0, '配置正确')]
 
@@ -357,7 +262,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                     )
 
                     res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -379,7 +284,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         )
 
                     res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -390,7 +295,6 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                     #     reward_pos='j_rgb_reward_ui_pos',
                     #     click_reward_pos='c_btn_reward_pos'
                     # )
-                    print('thisss!')
                     click_dual_area_battle_ending = game_func.click_dual_area_battle_ending(
                         pos_1p='j_rgb_background_ui_pos',
                         click_pos_1p='c_btn_battle_ending_area_pos',
@@ -417,7 +321,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                     )
 
                     res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -438,7 +342,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         )
 
                     res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -461,7 +365,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                     )
 
                     res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -482,7 +386,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         )
 
                     res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
@@ -516,7 +420,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                     )
 
                     res_judge_rgb_battle_during_ui = game_func.judge_rgb_battle_during_ui(
-                        pos='j_rgb_battle_during_ui_pos', reward_pos='j_rgb_reward_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos', reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
 
@@ -536,7 +440,7 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                         )
 
                     res_judge_rgb_battle_ending_ui = game_func.judge_rgb_battle_ending_ui(
-                        pos='j_rgb_battle_during_ui_pos',
+                        pos='j_rgb_dual_battle_during_ui_pos',
                         reward_pos='j_rgb_reward_ui_pos',
                         click_reward_pos='c_btn_reward_pos'
                     )
