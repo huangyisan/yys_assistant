@@ -12,6 +12,7 @@ from game import soul
 
 from configparser import ConfigParser
 import importlib
+from hashlib import md5
 
 class AppContext(ApplicationContext):
 
@@ -211,8 +212,16 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='保存成功\n循环执行'.format(count), icon=QMessageBox.Information)
 
     def get_donate_page(self):
-        donate_page = YYS_donate(self)
-        donate_page.show()
+        try:
+            donate_page = YYS_donate(self)
+            if donate_page:
+                donate_page.show()
+            else:
+                pass
+        except TypeError:
+            pass
+
+
 
 
 
@@ -364,11 +373,32 @@ class YYS_donate(QDialog):
         self.__ui=Ui_dialog_donate()
         self.__ui.setupUi(self)
         pic = QLabel(self)
-        pic.setPixmap(QPixmap("alipay_qrcode.png"))
-        pic.show()
-
+        with open("alipay_qrcode.png",'rb') as f:
+            data = f.read()
+        qrcode_md5 = md5(data).hexdigest()
+        if qrcode_md5 == 'f0804b815319ba98d1b1c36f32225ba4':
+            pic.setPixmap(QPixmap("alipay_qrcode.png"))
+            pic.show()
+        else:
+            self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
+            return 0
         # 关闭自身window
         self.__ui.btn_thanks.clicked.connect(self.close)
+
+    def showMessageBox(self, title, message,icon):
+        '''
+        弹窗组件
+        :param title:
+        :param message:
+        :param icon:
+        :return:
+        '''
+        msgBox = QMessageBox()
+        msgBox.setWindowTitle(title)
+        msgBox.setText(message)
+        msgBox.setStandardButtons(QMessageBox.Ok)
+        msgBox.setIcon(icon)
+        msgBox.exec_()
 
 class MyThread(QThread):
     '''
