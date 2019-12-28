@@ -167,7 +167,7 @@ def click_area_battle_ending(pos,click_pos,reward_pos,click_reward_pos)->bool:
         time.sleep(sleep_time)
         judge_rgb_reward_ui(reward_pos,click_reward_pos)
         if not compare_rgb(pos):
-            click_mouse(click_pos)
+            click_mouse(click_pos,random_num=10)
             print('当前进行战斗后开箱')
         else:
             return True
@@ -207,4 +207,5 @@ def click_dual_area_battle_ending(pos_1p,pos_2p,click_pos_1p,click_pos_2p,reward
             click_mouse(click_pos_2p)
             print('2p当前进行战斗后开箱')
         else:
+            print('开箱完毕')
             return True

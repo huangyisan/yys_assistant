@@ -1,10 +1,10 @@
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5.QtCore import QThread
 import sys
-from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog,QLabel
+from PyQt5.QtWidgets import QMainWindow, QMessageBox, QDialog, QLabel
 from PyQt5.QtGui import QPixmap
 from ui_yyswindow import Ui_MainWindow
-import win32_func,game_func
+import win32_func, game_func
 from ui_pos_config import Ui_pos_config
 from ui_yysdonate import Ui_dialog_donate
 from project_settings import yys_config_path
@@ -14,24 +14,23 @@ from configparser import ConfigParser
 import importlib
 from hashlib import md5
 
-class AppContext(ApplicationContext):
 
+class AppContext(ApplicationContext):
     def run(self):
         window = YYSWindow()
         window.show()
         return self.app.exec_()
 
-class YYSWindow(QMainWindow):
 
+class YYSWindow(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.__ui=Ui_MainWindow()
+        self.__ui = Ui_MainWindow()
 
         self.__ui.setupUi(self)
 
         # set default tab "main page"
         self.__ui.tabWidget.setCurrentIndex(0)
-
 
         # 程序启动后加载执行的一些任务
         # 获取当前屏幕分辨率
@@ -51,15 +50,12 @@ class YYSWindow(QMainWindow):
         self.child_pid = None
 
         # 追加像素点combbox内容
-        pos_name_list = [v for k,v in cfg.items('pos_name')]
-        pos_name_list = filter(lambda x:x.startswith('判') or x.startswith('点'), pos_name_list)
+        pos_name_list = [v for k, v in cfg.items('pos_name')]
+        pos_name_list = filter(lambda x: x.startswith('判') or x.startswith('点'), pos_name_list)
         self.__ui.combobox_pixel_pos.addItems(pos_name_list)
 
         # 初始化开始脚本按钮
         self.__ui.btn_soul_start.setText('配置检测')
-
-        # initial thread pool
-        # self.threadpool = QThreadPool()
 
         # 点击之类逻辑
         self.__ui.btn_move.clicked.connect(self.click_btn_move)
@@ -68,13 +64,9 @@ class YYSWindow(QMainWindow):
         self.__ui.btn_pos_save.clicked.connect(self.save_list_pos)
         self.__ui.btn_count_save.clicked.connect(self.save_exec_count)
         self.__ui.btn_soul_start.clicked.connect(self.start_soul)
-        # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
         self.__ui.btn_soul_stop.clicked.connect(self.stop_soul)
         self.__ui.btn_donate.clicked.connect(self.get_donate_page)
-
-        # 当单人模式下，关闭队长选择
-        self.__ui.checkbox_dualplay.toggled.connect(self.lock_or_release_items_team_leader)
-
+        self.__ui.btn_how_to_soul.clicked.connect(self.get_help_info_soul)
 
     def reload_config(self):
         '''
@@ -100,39 +92,32 @@ class YYSWindow(QMainWindow):
         初始化获取config.ini中exec_count的值
         :return:
         '''
-        exec_count = cfg.get('count','exec_count')
+        exec_count = cfg.get('count', 'exec_count')
         return int(exec_count)
 
     def lock_items_soul(self):
         self.__ui.groupbox_running_mode.setEnabled(False)
-        self.__ui.groupbox_beforebattle.setEnabled(False)
         self.__ui.groupbox_duringbattle.setEnabled(False)
         self.__ui.groupbox_other.setEnabled(False)
         self.__ui.groupbox_execcout.setEnabled(False)
 
     def release_items_soul(self):
         self.__ui.groupbox_running_mode.setEnabled(True)
-        self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
-        # self.__ui.groupbox_other.setEnabled(True)
         self.__ui.groupbox_execcout.setEnabled(True)
-
-
 
     def release_items_soul_stop(self):
         self.__ui.groupbox_running_mode.setEnabled(True)
-        self.__ui.groupbox_beforebattle.setEnabled(True)
         self.__ui.groupbox_duringbattle.setEnabled(True)
-        # self.__ui.groupbox_other.setEnabled(True)
         self.__ui.groupbox_execcout.setEnabled(True)
         self.__ui.btn_soul_start.setEnabled(True)
 
-    def lock_or_release_items_team_leader(self,checked):
-        self.__ui.btn_radio_leader_yes.setEnabled(checked)
-        self.__ui.btn_radio_leader_no.setEnabled(checked)
+    def get_help_info_soul(self):
+        self.showMessageBox(title='帮助',
+                            message='重要：请不要遮挡游戏窗口\n1. 请确保提前锁定阵容\n2. 确保开启自动战斗(战斗中左下角齿轮)\n3. 确保战斗后自动邀请(双开模式)\n4. 插画图鉴只选择"神乐插画"\n5. 无需开启樱饼自动\n6. 支持业原火等副本\n7. 如遇到无法暂停情况请按下ctrl+alt+del',
+                            icon=QMessageBox.Information)
 
-
-    def showMessageBox(self, title, message,icon):
+    def showMessageBox(self, title, message, icon):
         '''
         弹窗组件
         :param title:
@@ -161,7 +146,7 @@ class YYSWindow(QMainWindow):
                 win32_func.window_move_right(file_name=line_handle_text)
         else:
             # 错误弹窗调用
-            self.showMessageBox(title='错误', message='未输入句柄名称',icon=QMessageBox.Critical)
+            self.showMessageBox(title='错误', message='未输入句柄名称', icon=QMessageBox.Critical)
 
     def get_mouse_pos_pixel(self):
         '''
@@ -175,7 +160,7 @@ class YYSWindow(QMainWindow):
         self.__ui.label_piexl.setText('采集像素点坐标为：{}'.format(pos))
         self.__ui.label_piexl.setStyleSheet("color: rgb{};".format(rgb))
 
-        game_func.pixel_info[self.__ui.combobox_pixel_pos.currentText()]=res
+        game_func.pixel_info[self.__ui.combobox_pixel_pos.currentText()] = res
 
     def get_pos_list_config(self):
         '''
@@ -191,16 +176,16 @@ class YYSWindow(QMainWindow):
         :return:
         '''
 
-        for name,info in game_func.pixel_info.items():
-            cfg.set('pixel_info',name,str(info))
-        with open(config_file, 'w',encoding='utf-8') as configfile:
+        for name, info in game_func.pixel_info.items():
+            cfg.set('pixel_info', name, str(info))
+        with open(config_file, 'w', encoding='utf-8') as configfile:
             cfg.write(configfile)
         self.showMessageBox(title='提示', message='保存成功', icon=QMessageBox.Information)
 
     def save_exec_count(self):
         count = self.__ui.spinbox_exec_count.value()
-        cfg.set('count','exec_count',str(count))
-        with open(config_file, 'w',encoding='utf-8') as configfile:
+        cfg.set('count', 'exec_count', str(count))
+        with open(config_file, 'w', encoding='utf-8') as configfile:
             cfg.write(configfile)
         if count:
             self.showMessageBox(title='提示', message='保存成功\n执行{}次'.format(count), icon=QMessageBox.Information)
@@ -216,38 +201,16 @@ class YYSWindow(QMainWindow):
         else:
             self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
 
-            #     if donate_page:
-        #         donate_page.show()
-        #     else:
-        #         pass
-        # except TypeError:
-        #     pass
-
-            # self.pic.setPixmap(QPixmap("alipay_qrcode.png"))
-            # self.pic.show()
-        # else:
-        #     self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
-        #     return 0
-        # 关闭自身window
-        # self.__ui.btn_thanks.clicked.connect(self.close)
-
-
-
-
-
-    def check_soul_config_pos(self,func):
+    def check_soul_config_pos(self, func):
         '''
         检测御魂是否符合要执行挂机的配置pos. 返回值为0表示正常，1表示异常
         :return:
         '''
 
         # code,info = soul()
-        isteam_leader = self.__ui.btn_radio_leader_yes.isChecked()
-        isauto = self.__ui.btn_radio_auto_yes.isChecked()
         isreward = self.__ui.btn_radio_reward_yes.isChecked()
 
-
-        code,info= func()
+        code, info = func()
 
         if code:
             self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
@@ -275,7 +238,6 @@ class YYSWindow(QMainWindow):
         elif self.__ui.checkbox_fifth_pos.isChecked():
             return 5
 
-
     def start_soul(self):
         '''
         启动御魂挂机脚本，
@@ -284,8 +246,6 @@ class YYSWindow(QMainWindow):
         focus = self.get_shisheng_pos()
 
         exec_count = self.__ui.spinbox_exec_count.value()
-        team_leader = self.__ui.btn_radio_leader_yes.isChecked()
-        auto = self.__ui.btn_radio_auto_yes.isChecked()
         reward = self.__ui.btn_radio_reward_yes.isChecked()
         # 默认为single mode
         play_mode = self.__ui.checkbox_singleplay.isChecked()
@@ -296,7 +256,7 @@ class YYSWindow(QMainWindow):
             # 重新引入当前内存中pos配置信息
             self.reload_config()
 
-            code, info = soul(focus=focus, play_mode=play_mode,exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=True)
+            code, info = soul(focus=focus, play_mode=play_mode, exec_count=exec_count, reward=reward, dry_run=True)
             # code, info = soul(focus=focus,  dry_run=True)
             if code:
                 self.showMessageBox(title='错误', message=info, icon=QMessageBox.Critical)
@@ -314,7 +274,8 @@ class YYSWindow(QMainWindow):
             importlib.reload(game_func)
 
             # 防止卡死，将soul进程单独fork出子进程
-            self.p = MyThread(fn=soul, focus=focus, play_mode=play_mode,exec_count=exec_count, team_leader=team_leader, auto=auto, reward=reward, dry_run=False)
+            self.p = MyThread(fn=soul, focus=focus, play_mode=play_mode, exec_count=exec_count, reward=reward,
+                              dry_run=False)
             self.p.start()
 
             self.__ui.btn_soul_start.setText('挂机中...')
@@ -358,17 +319,17 @@ class YYSWindow(QMainWindow):
 class YYS_pos_config(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.__ui=Ui_pos_config()
+        self.__ui = Ui_pos_config()
         self.__ui.setupUi(self)
 
         # 获取pos配置列表
         pos_str = '采集点信息如下:\n'
-        for k,v in game_func.pixel_info.items():
+        for k, v in game_func.pixel_info.items():
             try:
                 v = eval(v)
             except TypeError as e:
                 pass
-            pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k,v[-1],v[0:3])
+            pos_str += '{0}, 坐标为:{1}, RGB为:{2}\n'.format(k, v[-1], v[0:3])
         pos_str += '\n\n\nRGB Online: https://www.colorspire.com/rgb-color-wheel/'
         self.__ui.text_pos_config.setText(pos_str)
         self.__ui.text_pos_config.setReadOnly(True)
@@ -380,7 +341,7 @@ class YYS_pos_config(QDialog):
 class YYS_donate(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.__ui=Ui_dialog_donate()
+        self.__ui = Ui_dialog_donate()
         self.__ui.setupUi(self)
         self.pic = QLabel(self)
         self.__ui.btn_thanks.clicked.connect(self.close)
@@ -390,7 +351,7 @@ class YYS_donate(QDialog):
         检查二维码支付的md5值是否正确
         :return:
         '''
-        with open("alipay_qrcode.png",'rb') as f:
+        with open("alipay_qrcode.png", 'rb') as f:
             data = f.read()
         qrcode_md5 = md5(data).hexdigest()
         if qrcode_md5 == 'f0804b815319ba98d1b1c36f32225ba4':
@@ -398,8 +359,7 @@ class YYS_donate(QDialog):
         else:
             return False
 
-
-    def showMessageBox(self, title, message,icon):
+    def showMessageBox(self, title, message, icon):
         '''
         弹窗组件
         :param title:
@@ -414,11 +374,13 @@ class YYS_donate(QDialog):
         msgBox.setIcon(icon)
         msgBox.exec_()
 
+
 class MyThread(QThread):
     '''
     通用型Thread入口
     '''
-    def __init__(self,fn, *args, **kwargs):
+
+    def __init__(self, fn, *args, **kwargs):
         QThread.__init__(self)
         self.fn = fn
         self.args = args
@@ -427,7 +389,8 @@ class MyThread(QThread):
     def run(self):
         self.fn(*self.args, **self.kwargs)
 
-if  __name__ == "__main__":
+
+if __name__ == "__main__":
     appctxt = AppContext()
 
     # 载入 config.ini 配置文件
