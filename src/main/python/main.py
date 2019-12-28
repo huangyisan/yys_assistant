@@ -212,14 +212,28 @@ class YYSWindow(QMainWindow):
             self.showMessageBox(title='提示', message='保存成功\n循环执行'.format(count), icon=QMessageBox.Information)
 
     def get_donate_page(self):
-        try:
-            donate_page = YYS_donate(self)
-            if donate_page:
-                donate_page.show()
-            else:
-                pass
-        except TypeError:
-            pass
+        donate_page = YYS_donate(self)
+        if donate_page.check_qrcode():
+            donate_page.pic.setPixmap(QPixmap("alipay_qrcode.png"))
+            donate_page.pic.show()
+            donate_page.show()
+        else:
+            self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
+
+            #     if donate_page:
+        #         donate_page.show()
+        #     else:
+        #         pass
+        # except TypeError:
+        #     pass
+
+            # self.pic.setPixmap(QPixmap("alipay_qrcode.png"))
+            # self.pic.show()
+        # else:
+        #     self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
+        #     return 0
+        # 关闭自身window
+        # self.__ui.btn_thanks.clicked.connect(self.close)
 
 
 
@@ -372,18 +386,22 @@ class YYS_donate(QDialog):
         super().__init__(parent=parent)
         self.__ui=Ui_dialog_donate()
         self.__ui.setupUi(self)
-        pic = QLabel(self)
+        self.pic = QLabel(self)
+        self.__ui.btn_thanks.clicked.connect(self.close)
+
+    def check_qrcode(self):
+        '''
+        检查二维码支付的md5值是否正确
+        :return:
+        '''
         with open("alipay_qrcode.png",'rb') as f:
             data = f.read()
         qrcode_md5 = md5(data).hexdigest()
         if qrcode_md5 == 'f0804b815319ba98d1b1c36f32225ba4':
-            pic.setPixmap(QPixmap("alipay_qrcode.png"))
-            pic.show()
+            return True
         else:
-            self.showMessageBox(title='错误', message='二维码好像被海国人劫持了！', icon=QMessageBox.Critical)
-            return 0
-        # 关闭自身window
-        self.__ui.btn_thanks.clicked.connect(self.close)
+            return False
+
 
     def showMessageBox(self, title, message,icon):
         '''
