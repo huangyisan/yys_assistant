@@ -32,18 +32,6 @@ class YYSWindow(QMainWindow):
         # set default tab "main page"
         self.__ui.tabWidget.setCurrentIndex(0)
 
-        # radio default checked
-        self.__ui.btn_radio_left.setChecked(True)
-        self.__ui.btn_radio_leader_yes.setChecked(True)
-        self.__ui.btn_radio_auto_no.setChecked(True)
-        self.__ui.btn_radio_reward_yes.setChecked(True)
-        self.__ui.checkbox_none_pos.setChecked(True)
-
-        # game mode single default
-        self.__ui.checkbox_singleplay.setChecked(True)
-
-        # 悬赏封印group disable
-        self.__ui.groupbox_other.setEnabled(False)
 
         # 程序启动后加载执行的一些任务
         # 获取当前屏幕分辨率
@@ -83,6 +71,10 @@ class YYSWindow(QMainWindow):
         # self.__ui.btn_soul_start.clicked.connect(self.start_soul_process)
         self.__ui.btn_soul_stop.clicked.connect(self.stop_soul)
         self.__ui.btn_donate.clicked.connect(self.get_donate_page)
+
+        # 当单人模式下，关闭队长选择
+        self.__ui.checkbox_dualplay.toggled.connect(self.lock_or_release_items_team_leader)
+
 
     def reload_config(self):
         '''
@@ -134,6 +126,10 @@ class YYSWindow(QMainWindow):
         # self.__ui.groupbox_other.setEnabled(True)
         self.__ui.groupbox_execcout.setEnabled(True)
         self.__ui.btn_soul_start.setEnabled(True)
+
+    def lock_or_release_items_team_leader(self,checked):
+        self.__ui.btn_radio_leader_yes.setEnabled(checked)
+        self.__ui.btn_radio_leader_no.setEnabled(checked)
 
 
     def showMessageBox(self, title, message,icon):

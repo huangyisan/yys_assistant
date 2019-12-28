@@ -39,7 +39,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <property name="usesScrollButtons">
      <bool>true</bool>
@@ -184,6 +184,9 @@
           <property name="text">
            <string>左边</string>
           </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
          </widget>
         </item>
         <item>
@@ -327,6 +330,9 @@
        <property name="text">
         <string>单人模式</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup_3</string>
        </attribute>
@@ -375,6 +381,9 @@
        <string>战斗前</string>
       </property>
       <widget class="QRadioButton" name="btn_radio_leader_yes">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -390,13 +399,16 @@
         <bool>true</bool>
        </property>
        <property name="checked">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup</string>
        </attribute>
       </widget>
       <widget class="QRadioButton" name="btn_radio_leader_no">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="geometry">
         <rect>
          <x>130</x>
@@ -422,7 +434,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>是否为队长？</string>
+        <string>1p是否为队长？</string>
        </property>
       </widget>
       <widget class="QRadioButton" name="btn_radio_auto_yes">
@@ -450,6 +462,9 @@
        <property name="text">
         <string>否</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
       </widget>
       <widget class="QLabel" name="label_2">
        <property name="geometry">
@@ -461,7 +476,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>是否开启自动？</string>
+        <string>1p是否开启自动？</string>
        </property>
       </widget>
      </widget>
@@ -559,6 +574,9 @@
        <property name="text">
         <string>否</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
        <attribute name="buttonGroup">
         <string notr="true">buttonGroup_2</string>
        </attribute>
@@ -594,6 +612,9 @@
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupbox_other">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -629,6 +650,9 @@
        </property>
        <property name="text">
         <string>是</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
       </widget>
       <widget class="QRadioButton" name="btn_radio_reward_no">
@@ -787,7 +811,7 @@
  <connections/>
  <buttongroups>
   <buttongroup name="buttonGroup"/>
-  <buttongroup name="buttonGroup_2"/>
   <buttongroup name="buttonGroup_3"/>
+  <buttongroup name="buttonGroup_2"/>
  </buttongroups>
 </ui>

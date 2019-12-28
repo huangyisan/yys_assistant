@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'yyswindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.14.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -64,6 +66,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.btn_radio_left = QtWidgets.QRadioButton(self.layoutWidget)
+        self.btn_radio_left.setChecked(True)
         self.btn_radio_left.setObjectName("btn_radio_left")
         self.horizontalLayout_2.addWidget(self.btn_radio_left)
         self.btn_radio_right = QtWidgets.QRadioButton(self.layoutWidget)
@@ -104,6 +107,7 @@ class Ui_MainWindow(object):
         self.groupbox_running_mode.setObjectName("groupbox_running_mode")
         self.checkbox_singleplay = QtWidgets.QCheckBox(self.groupbox_running_mode)
         self.checkbox_singleplay.setGeometry(QtCore.QRect(10, 20, 71, 16))
+        self.checkbox_singleplay.setChecked(True)
         self.checkbox_singleplay.setObjectName("checkbox_singleplay")
         self.buttonGroup_3 = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup_3.setObjectName("buttonGroup_3")
@@ -124,14 +128,16 @@ class Ui_MainWindow(object):
         self.groupbox_beforebattle.setFont(font)
         self.groupbox_beforebattle.setObjectName("groupbox_beforebattle")
         self.btn_radio_leader_yes = QtWidgets.QRadioButton(self.groupbox_beforebattle)
+        self.btn_radio_leader_yes.setEnabled(False)
         self.btn_radio_leader_yes.setGeometry(QtCore.QRect(10, 40, 89, 16))
         self.btn_radio_leader_yes.setCheckable(True)
-        self.btn_radio_leader_yes.setChecked(False)
+        self.btn_radio_leader_yes.setChecked(True)
         self.btn_radio_leader_yes.setObjectName("btn_radio_leader_yes")
         self.buttonGroup = QtWidgets.QButtonGroup(MainWindow)
         self.buttonGroup.setObjectName("buttonGroup")
         self.buttonGroup.addButton(self.btn_radio_leader_yes)
         self.btn_radio_leader_no = QtWidgets.QRadioButton(self.groupbox_beforebattle)
+        self.btn_radio_leader_no.setEnabled(False)
         self.btn_radio_leader_no.setGeometry(QtCore.QRect(130, 40, 89, 16))
         self.btn_radio_leader_no.setObjectName("btn_radio_leader_no")
         self.buttonGroup.addButton(self.btn_radio_leader_no)
@@ -143,6 +149,7 @@ class Ui_MainWindow(object):
         self.btn_radio_auto_yes.setObjectName("btn_radio_auto_yes")
         self.btn_radio_auto_no = QtWidgets.QRadioButton(self.groupbox_beforebattle)
         self.btn_radio_auto_no.setGeometry(QtCore.QRect(130, 80, 89, 16))
+        self.btn_radio_auto_no.setChecked(True)
         self.btn_radio_auto_no.setObjectName("btn_radio_auto_no")
         self.label_2 = QtWidgets.QLabel(self.groupbox_beforebattle)
         self.label_2.setGeometry(QtCore.QRect(10, 60, 161, 16))
@@ -172,6 +179,7 @@ class Ui_MainWindow(object):
         self.checkbox_none_pos = QtWidgets.QCheckBox(self.groupbox_duringbattle)
         self.checkbox_none_pos.setEnabled(True)
         self.checkbox_none_pos.setGeometry(QtCore.QRect(150, 60, 51, 16))
+        self.checkbox_none_pos.setChecked(True)
         self.checkbox_none_pos.setObjectName("checkbox_none_pos")
         self.buttonGroup_2.addButton(self.checkbox_none_pos)
         self.checkbox_fifth_pos = QtWidgets.QCheckBox(self.groupbox_duringbattle)
@@ -182,6 +190,7 @@ class Ui_MainWindow(object):
         self.label_3.setGeometry(QtCore.QRect(10, 20, 101, 16))
         self.label_3.setObjectName("label_3")
         self.groupbox_other = QtWidgets.QGroupBox(self.second_page)
+        self.groupbox_other.setEnabled(False)
         self.groupbox_other.setGeometry(QtCore.QRect(10, 210, 221, 61))
         self.groupbox_other.setObjectName("groupbox_other")
         self.label_5 = QtWidgets.QLabel(self.groupbox_other)
@@ -189,6 +198,7 @@ class Ui_MainWindow(object):
         self.label_5.setObjectName("label_5")
         self.btn_radio_reward_yes = QtWidgets.QRadioButton(self.groupbox_other)
         self.btn_radio_reward_yes.setGeometry(QtCore.QRect(10, 40, 89, 16))
+        self.btn_radio_reward_yes.setChecked(True)
         self.btn_radio_reward_yes.setObjectName("btn_radio_reward_yes")
         self.btn_radio_reward_no = QtWidgets.QRadioButton(self.groupbox_other)
         self.btn_radio_reward_no.setGeometry(QtCore.QRect(130, 40, 89, 16))
@@ -240,7 +250,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -267,10 +277,10 @@ class Ui_MainWindow(object):
         self.groupbox_beforebattle.setTitle(_translate("MainWindow", "战斗前"))
         self.btn_radio_leader_yes.setText(_translate("MainWindow", "是"))
         self.btn_radio_leader_no.setText(_translate("MainWindow", "否"))
-        self.label.setText(_translate("MainWindow", "是否为队长？"))
+        self.label.setText(_translate("MainWindow", "1p是否为队长？"))
         self.btn_radio_auto_yes.setText(_translate("MainWindow", "是"))
         self.btn_radio_auto_no.setText(_translate("MainWindow", "否"))
-        self.label_2.setText(_translate("MainWindow", "是否开启自动？"))
+        self.label_2.setText(_translate("MainWindow", "1p是否开启自动？"))
         self.groupbox_duringbattle.setTitle(_translate("MainWindow", "战斗中"))
         self.checkbox_first_pos.setText(_translate("MainWindow", "一号"))
         self.checkbox_second_pos.setText(_translate("MainWindow", "二号"))
@@ -295,4 +305,3 @@ class Ui_MainWindow(object):
         self.btn_donate.setText(_translate("MainWindow", "打赏"))
         self.label_4.setText(_translate("MainWindow", "喜欢？请作者喝咖啡"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "帮助"))
-
