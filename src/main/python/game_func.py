@@ -135,7 +135,7 @@ def click_btn_ShiSheng(click_pos,reward_pos,click_reward_pos)->bool:
     :return:
     '''
     judge_rgb_reward_ui(reward_pos,click_reward_pos)
-    time.sleep(0.2)
+    time.sleep(0.4)
     print('式神点击')
     click_mouse(click_pos,random_num=0)
     return True
@@ -190,9 +190,9 @@ def click_2p_area_battle_ending(pos,click_pos,reward_pos,click_reward_pos)->bool
             return True
 
 @dry_run(flag=dry_run_flag)
-def click_dual_area_battle_ending(pos_1p,pos_2p,click_pos_1p,click_pos_2p,reward_pos,click_reward_pos)->bool:
+def click_dual_area_battle_ending(pos_1p,pos_2p,click_pos_1p,click_pos_2p,reward_pos,click_reward_pos,reward_pos_2p,click_reward_pos_2p)->bool:
     '''
-    stop click if detect any rgb in background picture or invite ui
+    stop click if detect any rgb in background picture or invite ui, 双人模式
     :param pos:
     :param click_pos:
     :return:
@@ -200,6 +200,7 @@ def click_dual_area_battle_ending(pos_1p,pos_2p,click_pos_1p,click_pos_2p,reward
     while True:
         time.sleep(sleep_time)
         judge_rgb_reward_ui(reward_pos,click_reward_pos)
+        judge_rgb_reward_ui(reward_pos_2p,click_reward_pos_2p)
         if not compare_rgb(pos_1p):
             click_mouse(click_pos_1p)
             print('1p当前进行战斗后开箱')

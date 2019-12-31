@@ -164,7 +164,9 @@ def soul(focus: int = 1, play_mode: bool = True, exec_count: int = 1, team_leade
                 pos_2p='j_rgb_background_ui_2p_pos',
                 click_pos_2p='c_btn_battle_ending_area_2p_pos',
                 reward_pos='j_rgb_reward_ui_pos',
-                click_reward_pos='c_btn_reward_pos'
+                click_reward_pos='c_btn_reward_pos',
+                reward_pos_2p = 'j_rgb_reward_ui_2p_pos',
+                click_reward_pos_2p='c_btn_reward_2p_pos',
             )
 
             if dry_run:
